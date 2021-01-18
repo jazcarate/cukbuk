@@ -1,4 +1,5 @@
 <script>
+	import { encode, decode } from "./lzma";
 	const exampleRecipe = `# Cheesecake de zapallo
 ## Parte blanca
 - 19g de chocolate amargo
@@ -13,36 +14,24 @@
 - 8g azucar de mentira
 - 3g yema`;
 
-	export let plaintext =
-		location.hash.length === 0 ? exampleRecipe : decode();
+	export let plaintext = "Loading...";
 
-	function decode() {
-		fetch("data:application/octet-stream;base64," + location.hash.substr(1))
-			.then((r) => r.blob())
-			.then(function (blob) {
-				var reader = new FileReader();
-				reader.onload = function () {
-					var compressed_data = Array.from(
-						new Uint8Array(reader.result)
-					);
-					LZMA.decompress(compressed_data, (decoded, error) => {
-						if (error) {
-							alert("Failed to decompress data: " + error); // TODO
-							return;
-						}
+	if (location.hash.length === 0) {
+		plaintext = exampleRecipe;
+	} else {
+		decode(location.hash.substr(1)).then((r) => (plaintext = r));
+	}
 
-						plaintext = decoded;
-					});
-				};
-				reader.readAsArrayBuffer(blob);
-			});
-
-		return "decoding";
+	function handleEncode() {
+		encode(plaintext).then((f) => {
+			console.log("encoded", f);
+		});
 	}
 </script>
 
 <main>
-	<textarea cols="40" rows="20" value={plaintext} />
+	<textarea cols="40" rows="20" bind:value={plaintext} />
+	<button on:click={handleEncode}>encode</button>
 </main>
 
 <style>
