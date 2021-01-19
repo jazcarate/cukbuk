@@ -9,4 +9,5 @@ npm run dev
 
 
 ## TODO
-Measurements
+- Rest of the units
+- Timer notification focus on the element
