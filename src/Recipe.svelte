@@ -1,5 +1,6 @@
 <script lang="ts">
     import Scalable from "./Scalable.svelte";
+    import { scale } from "./myRecipeStore";
 
     export let text: string;
 </script>
@@ -8,9 +9,10 @@
     <h1>Cheesecake de zapallo</h1>
     <p>Sale una tarta medianita</p>
     <h2>Parte blanca</h2>
-    <p><Scalable value={2} unit="g" /> de chocolate amargo</p>
+    <p><Scalable value={1} unit="g" /> de chocolate amargo</p>
     <p><Scalable value={2} unit="l" /> de chocolate amargo</p>
-    <p><Scalable value={2} /> de chocolate amargo</p>
+    <p><Scalable value={3} /> de chocolate amargo</p>
+    <code>scale: {$scale}</code>
 </main>
 
 <style>
