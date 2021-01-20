@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Scalable from "./Scalable.svelte";
-    import Timer from "./Timer.svelte";
-    import Item from "./Item.svelte";
+    import Scalable from "../Scalable.svelte";
+    import Timer from "../Timer.svelte";
+    import Item from "../Item.svelte";
 
     export let text: string;
 </script>

@@ -1,4 +1,4 @@
-import { encode, decode } from "./lzma";
+import { decode } from "./lzma";
 
 const exampleRecipe = `# Cheesecake de zapallo
 ## Parte blanca
@@ -14,20 +14,11 @@ const exampleRecipe = `# Cheesecake de zapallo
 - 8g azucar de mentira
 - 3g yema`;
 
-export let plaintext = "Loading...";
 
-if (location.hash.length === 0) {
-    plaintext = exampleRecipe;
-} else {
-    decode(location.hash.substr(1)).then((r) => (plaintext = r));
-}
-
-function handleEncode() {
-    encode(plaintext).then((f) => {
-        console.log("encoded", f);
-    });
-}
-
-export function getRecipeFromURL(location: Location): Promise<string> {
-    return Promise.resolve(exampleRecipe);
+export async function getRecipeFromURL(location: Location): Promise<string> {
+    if (location.hash.length === 0) {
+        return exampleRecipe;
+    } else {
+        return decode(location.hash.substr(1));
+    }
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getRecipeFromURL } from "./lib/recipe";
-    import Recipe from "./Recipe.svelte";
+    import Recipe from "./Recipe/Recipe.svelte";
     import Options from "./Options.svelte";
 
     let promise = getRecipeFromURL(location);
@@ -9,8 +9,8 @@
 <main>
     {#await promise}
         <p>Interpreting...</p>
-    {:then plaintext}
-        <Recipe text={plaintext} />
+    {:then text}
+        <Recipe {text} />
     {/await}
 
     <Options />
@@ -20,7 +20,6 @@
     main {
         margin: 0 auto;
         padding: 1em;
-        min-height: 100vh;
         position: relative;
     }
 
