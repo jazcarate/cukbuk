@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { parse, end } from "iso8601-duration";
-    import type { Duration } from "iso8601-duration";
     import { notify, request } from "./lib/notifications";
-    import { debug } from "svelte/internal";
+    import { parse, end } from "./lib/time";
+    import type { Duration } from "./lib/time";
 
-    // ISO 8601 duration format: https://en.wikipedia.org/wiki/ISO_8601#Durations
     export let value: string;
 
+    let done = false;
     let endDate: Date | null;
     let remaining: Duration;
     let interval: number;
@@ -26,6 +25,7 @@
 
             if (diff <= 0) {
                 notifyy();
+                done = true;
                 stop();
             } else {
                 const hours = Math.floor(diff / 3600) % 24;
@@ -40,10 +40,7 @@
     }
 
     function notifyy(): void {
-        const [unit, value] = Object.entries(parsed).find(
-            ([_, v]) => v !== 0
-        );
-        notify("Cukbuk :: Timer up", `Your ${value} ${unit} timer is up!`);
+        notify("Cukbuk :: Timer up", `Your timer is up!`);
     }
 
     function stop() {
@@ -53,14 +50,15 @@
 </script>
 
 {#if endDate}
-    <span on:click={stop}>
+    <span on:click|stopPropagation={stop}>
         ⏹ {round(remaining.hours)}:{round(remaining.minutes)}:{round(
             remaining.seconds
         )}
     </span>
 {:else}
-    <span on:click={start}>
-        ▶ {round(parsed.hours)}:{round(parsed.minutes)}:{round(parsed.seconds)}
+    <span on:click|stopPropagation={start}>
+        {#if done}✅{:else}▶{/if}
+        {round(parsed.hours)}:{round(parsed.minutes)}:{round(parsed.seconds)}
     </span>
 {/if}
 

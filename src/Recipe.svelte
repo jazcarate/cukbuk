@@ -1,18 +1,24 @@
 <script lang="ts">
     import Scalable from "./Scalable.svelte";
     import Timer from "./Timer.svelte";
+    import Item from "./Item.svelte";
 
     export let text: string;
 </script>
 
 <main>
-    <h1>Cheesecake de zapallo</h1>
-    <p>Sale una tarta medianita</p>
-    <h2>Parte blanca</h2>
-    <p><Scalable value={1} unit="g" /> de chocolate amargo</p>
-    <p><Scalable value={2} unit="l" /> de chocolate amargo</p>
-    <p><Scalable value={3} /> de chocolate amargo</p>
-    <p>Cocinar durante <Timer value={"PT5S"} /> en horno bien caliente 🔥</p>
+    <ol>
+        <h1>Cheesecake de zapallo</h1>
+        <p>Sale una tarta medianita</p>
+        <h2>Parte blanca</h2>
+        <Item><Scalable value={1} unit="g" /> de chocolate amargo</Item>
+        <Item><Scalable value={2} unit="l" /> de chocolate amargo</Item>
+        <Item><Scalable value={3} /> de chocolate amargo</Item>
+        <Item
+            >Cocinar durante <Timer value={"00:00:05"} /> en horno bien caliente
+            🔥</Item
+        >
+    </ol>
 </main>
 
 <style>
@@ -26,5 +32,10 @@
         line-height: 1.17em;
         font-size: 1.5rem;
         font-weight: 600;
+    }
+
+    ol {
+        list-style-type: none;
+        padding: 0;
     }
 </style>
