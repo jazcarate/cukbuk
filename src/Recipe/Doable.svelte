@@ -3,13 +3,25 @@
     import Timer from "../Timer.svelte";
     import Item from "../Item.svelte";
     import { parse } from "../lib/parser";
+    import { checkFav, toggleFav } from "../lib/fav";
 
     export let text: string;
     const recipe = parse(text);
+    let isFav = checkFav(recipe.title);
+
+    function fav() {
+        toggleFav(recipe.title, location.toString());
+        isFav = !isFav;
+    }
 </script>
 
 <main>
-    <h1>{recipe.title}</h1>
+    <h1>
+        {recipe.title}
+        <span on:click={fav} class="clickable">
+            {#if isFav}🌟{:else}⭐{/if}
+        </span>
+    </h1>
     <ol>
         {#each recipe.lines as line}
             {#if line._type == "header"}
@@ -51,5 +63,9 @@
     ol {
         list-style-type: none;
         padding: 0;
+    }
+
+    .clickable {
+        cursor: pointer;
     }
 </style>

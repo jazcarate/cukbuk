@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { routes } from "svelte-hash-router";
+
     import { encode } from "../lib/lzma";
     import { pushToast } from "../toastStore";
 
@@ -7,10 +9,17 @@
 
     export let text: string;
     let edditingP = Promise.resolve(false);
+    let recipeRoute = $routes["/r/*"];
 
     function switchMode(mode: boolean): void {
         edditingP = encode(text)
-            .then((newKey) => history.pushState(null, null, "#" + newKey))
+            .then((newKey) =>
+                history.pushState(
+                    null,
+                    null,
+                    recipeRoute.$$stringify({ _: newKey })
+                )
+            )
             .then(() => mode);
     }
 

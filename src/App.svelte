@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MyRecipe from "./MyRecipe.svelte";
+	import Router from "svelte-hash-router";
 	import Toast from "./Toast.svelte";
 </script>
 
@@ -8,7 +8,7 @@
 		<a href="/">Cukb.uk</a>
 	</nav>
 
-	<MyRecipe />
+	<Router />
 
 	<Toast />
 </main>

@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { getRecipeFromURL } from "./lib/recipe";
-    import Recipe from "./Recipe/Recipe.svelte";
-    import Options from "./Options.svelte";
+    import { params } from "svelte-hash-router";
+    import Recipe from "../Recipe/Recipe.svelte";
+    import Options from "../Options.svelte";
+    import { getRecipeFromHash } from "../lib/recipe";
 
-    let promise = getRecipeFromURL(location);
+    let promise = getRecipeFromHash($params._);
 </script>
 
 <main>
