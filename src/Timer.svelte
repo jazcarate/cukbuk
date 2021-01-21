@@ -1,16 +1,14 @@
 <script lang="ts">
     import { notify, request } from "./lib/notifications";
-    import { parse, end } from "./lib/time";
+    import { end } from "./lib/time";
     import type { Duration } from "./lib/time";
 
-    export let value: string;
+    export let value: Duration;
 
     let done = false;
     let endDate: Date | null;
     let remaining: Duration;
     let interval: number;
-
-    const parsed = parse(value);
 
     function round(x: number): string {
         return x.toFixed(0).padStart(2, "0");
@@ -18,8 +16,8 @@
 
     function start() {
         request();
-        endDate = end(parsed);
-        remaining = parsed;
+        endDate = end(value);
+        remaining = value;
         interval = setInterval(() => {
             let diff = (endDate.getTime() - Date.now()) / 1000; // Seconds
 
@@ -58,7 +56,7 @@
 {:else}
     <span on:click|stopPropagation={start}>
         {#if done}✅{:else}▶{/if}
-        {round(parsed.hours)}:{round(parsed.minutes)}:{round(parsed.seconds)}
+        {round(value.hours)}:{round(value.minutes)}:{round(value.seconds)}
     </span>
 {/if}
 

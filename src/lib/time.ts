@@ -11,5 +11,5 @@ export function end(duration: Duration): Date {
 export function parse(x: string): Duration {
     const parts = x.split(":").reverse().map(i => parseInt(i));
 
-    return { seconds: parts[0] || 0, minutes: parts[1] || 0, hours: parts[2] };
+    return { seconds: parts[0] || 0, minutes: parts[1] || 0, hours: parts[2] || 0 };
 }

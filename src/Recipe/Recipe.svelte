@@ -21,8 +21,6 @@
 </script>
 
 <main>
-    <code>{text}</code>
-
     {#await edditingP}
         <p>Changing...</p>
     {:then edditing}
