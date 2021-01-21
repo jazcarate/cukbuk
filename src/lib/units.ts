@@ -8,12 +8,20 @@ export const volumeUnits = {
     l: 1,
 };
 
+export const allUnits = [...keys(weightUnits), ...keys(volumeUnits), 'none'];
+
 export type WeightUnit = keyof typeof weightUnits;
 export type VolumeUnit = keyof typeof volumeUnits;
 export type Unit = WeightUnit | VolumeUnit | 'none';
 
 export function keys<K>(map: K): (keyof K)[] {
     return Object.keys(map) as (keyof K)[];
+}
+
+export function toUnit(u: string): Unit {
+    if (allUnits.includes(u))
+        return u as Unit;
+    return 'none';
 }
 
 export function isWeight(u: Unit): u is WeightUnit {

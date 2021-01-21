@@ -1,14 +1,14 @@
 import { decode } from "./lzma";
 
-const exampleRecipe = `# Cheesecake de zapallo
-## Parte blanca
+const exampleRecipe = `Cheesecake de zapallo
+# Parte blanca
 - 19g de chocolate amargo
 - 45g de azucar de mentira
 - 100 gramos de pure de zapagoo
 - [24g/3] claras de huevo
 - baking powder
 
-## Parte negra
+# Parte negra
 - 4g pure de zapallo
 - 5g cream cheese
 - 8g azucar de mentira

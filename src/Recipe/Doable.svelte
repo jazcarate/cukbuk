@@ -28,6 +28,7 @@
                         {:else if component._type == "time"}
                             <Timer value={component.value} />
                         {/if}
+                        <span />
                     {/each}
                 </Item>
             {/if}

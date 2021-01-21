@@ -1,4 +1,5 @@
 import type { Duration } from "./time";
+import { allUnits, toUnit } from "./units"
 import type { Unit } from "./units"
 
 interface Text {
@@ -22,24 +23,50 @@ interface Time {
     value: Duration
 }
 
-type Item = Text | Scalable | Time
-type Line = Header | { _type: 'items', value: Item[] }
+type Item = Text | Scalable | Time;
+type Items = { _type: 'items', value: Item[] };
+type Line = Header | Items;
 
 type Recipe = {
     title: string,
     lines: Line[]
 }
 
+function header(value: string): Header {
+    return { _type: 'header', value };
+}
+
+function items(text: string): Items {
+    return { _type: 'items', value: toItems(text) };
+}
+
+function text(value: string): Text {
+    return { _type: 'text', value };
+}
+
+function scalable(value: number, unit?: string): Scalable {
+    return { _type: 'scalable', value, unit: toUnit(unit) };
+}
+
+function line(l: string): Line {
+    if (l.startsWith('# ')) return header(l.substring(2));
+    return items(l)
+}
+
+function toItems(value: string): Item[] {
+    return value.split(' ').map(v => {
+        const candidateScalable = v.match(new RegExp(`^(\\d+)(\\S*)$`, 'i'));
+        if (candidateScalable != null) return scalable(parseFloat(candidateScalable[1]), candidateScalable[2])
+        return text(v);
+    });
+}
+
+export const testing = { line };
+
 export function parse(text: string): Recipe {
-    let recipe = {};
-    return {
-        title: 'Cheesecake de zapallo',
-        lines: [
-            { _type: 'items', value: [{ _type: 'text', value: 'Sale una tarta medianita' }] },
-            { _type: 'header', value: 'Parte blanca' },
-            { _type: 'items', value: [{ _type: 'text', value: 'Mezclar' }, { _type: 'scalable', value: 3 }, { _type: 'text', value: ' huevos' }] },
-            { _type: 'items', value: [{ _type: 'text', value: 'Cocinar' }, { _type: 'scalable', value: 2, unit: 'g' }] },
-            { _type: 'items', value: [{ _type: 'time', value: { hours: 0, minutes: 0, seconds: 5 } }, { _type: 'text', value: ' de horno' }] },
-        ],
-    }
+    const [title, ...linesText] = text.split('\n');
+
+    const lines = linesText.map(line)
+
+    return { title, lines };
 }
