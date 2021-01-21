@@ -26,7 +26,7 @@
                 done = true;
                 stop();
             } else {
-                const hours = Math.floor(diff / 3600) % 24;
+                const hours = Math.floor(diff / 3600);
                 diff -= hours * 3600;
                 const minutes = Math.floor(diff / 60) % 60;
                 diff -= minutes * 60;

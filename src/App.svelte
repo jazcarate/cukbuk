@@ -1,11 +1,12 @@
 <script lang="ts">
-	import Router from "svelte-hash-router";
+	import Router, { routes } from "svelte-hash-router";
 	import Toast from "./Toast.svelte";
 </script>
 
 <main>
 	<nav>
-		<a href="/">Cukb.uk</a>
+		<a href={$routes["/"].$$stringify()}>Cukb.uk</a>
+		<a href={$routes["/about"].$$stringify()}>About</a>
 	</nav>
 
 	<Router />

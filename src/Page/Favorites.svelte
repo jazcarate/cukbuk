@@ -1,11 +1,18 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
     import { listFavs } from "../lib/fav";
+    import { setTitle } from "../lib/title";
 
     let favs = listFavs();
 
     function date(epoch: Date): string {
         return epoch.toLocaleDateString();
     }
+
+    onMount(() => {
+        setTitle("Favorites");
+    });
 </script>
 
 <main>

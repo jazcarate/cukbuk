@@ -4,6 +4,8 @@
     import Item from "../Item.svelte";
     import { parse } from "../lib/parser";
     import { checkFav, toggleFav } from "../lib/fav";
+    import { onMount } from "svelte";
+    import { setTitle } from "../lib/title";
 
     export let text: string;
     const recipe = parse(text);
@@ -13,6 +15,10 @@
         toggleFav(recipe.title, location.toString());
         isFav = !isFav;
     }
+
+    onMount(() => {
+        setTitle(recipe.title);
+    });
 </script>
 
 <main>
@@ -26,7 +32,7 @@
         {#each recipe.lines as line}
             {#if line._type == "header"}
                 <h2>{line.value}</h2>
-            {:else}
+            {:else if line.value}
                 <Item>
                     {#each line.value as component}
                         {#if component._type == "text"}
@@ -42,6 +48,8 @@
                         <span />
                     {/each}
                 </Item>
+            {:else}
+                <p />
             {/if}
         {/each}
     </ol>
