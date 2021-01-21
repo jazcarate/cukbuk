@@ -6,7 +6,6 @@
 
     export let text: string;
     const recipe = parse(text);
-    console.log({ recipe });
 </script>
 
 <main>

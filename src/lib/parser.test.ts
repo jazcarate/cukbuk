@@ -58,6 +58,21 @@ describe('toItems', () => {
             { _type: 'header', value: "foo bar" }
         );
     });
+
+    describe('timed', () => {
+        test("short", () => {
+            expect(testing.line("30:00").value).toEqual(
+                [{ _type: 'time', value: { hours: 0, minutes: 30, seconds: 0 } }]
+            );
+        });
+
+        test("complete", () => {
+            expect(testing.line("1:30:00").value).toEqual(
+                [{ _type: 'time', value: { hours: 1, minutes: 30, seconds: 0 } }]
+            );
+        })
+
+    });
 })
 
 test.skip('basic', () => {

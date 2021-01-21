@@ -18,6 +18,18 @@
         await navigator.clipboard.writeText(location.toString());
         pushToast("URL copied");
     }
+
+    function share() {
+        const shareData = {
+            title: "Cukb.uk :: Recipe",
+            url: location.toString(),
+        };
+        navigator.share(shareData);
+    }
+
+    let isMobile =
+        typeof window.orientation !== "undefined" ||
+        navigator.userAgent.indexOf("IEMobile") !== -1;
 </script>
 
 <main>
@@ -34,6 +46,9 @@
             {#if edditing}✅{:else}✏{/if}
         </span>
         <span on:click={copy}>🔗</span>
+        {#if isMobile}
+            <span on:click={share}>📨</span>
+        {/if}
     {/await}
 </main>
 

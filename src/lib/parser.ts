@@ -48,6 +48,10 @@ function scalable(value: number, unit?: string): Scalable {
     return { _type: 'scalable', value, unit: toUnit(unit) };
 }
 
+function time(hours: number, minutes: number, seconds: number): Time {
+    return { _type: 'time', value: { hours, minutes, seconds } };
+}
+
 function line(l: string): Line {
     if (l.startsWith('# ')) return header(l.substring(2));
     return items(l)
@@ -55,7 +59,14 @@ function line(l: string): Line {
 
 function toItems(value: string): Item[] {
     return value.split(' ').map(v => {
-        const candidateScalable = v.match(new RegExp(`^(\\d+)(\\S*)$`, 'i'));
+        const candidateTimed = v.match(/^(\d+):(\d+)(?::(\d+))?$/i);
+        if (candidateTimed != null) {
+            if (candidateTimed[3])
+                return time(parseFloat(candidateTimed[1]) || 0, parseFloat(candidateTimed[2]) || 0, parseFloat(candidateTimed[3]) || 0)
+            return time(0, parseFloat(candidateTimed[1]) || 0, parseFloat(candidateTimed[2]) || 0)
+        }
+
+        const candidateScalable = v.match(/^(\d+)(\S*)$/i);
         if (candidateScalable != null) return scalable(parseFloat(candidateScalable[1]), candidateScalable[2])
         return text(v);
     });
