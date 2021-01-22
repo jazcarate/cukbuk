@@ -73,6 +73,24 @@ describe('toItems', () => {
         })
 
     });
+
+    describe('types', () => {
+        test("step", () => {
+            expect(testing.line("- foo")._type).toEqual('step');
+        });
+        test("heading", () => {
+            expect(testing.line("# foo")._type).toEqual('header');
+        });
+        test("p", () => {
+            expect(testing.line("foo")._type).toEqual('paragraph');
+        });
+    });
+
+    describe('alternative', () => {
+        test("step", () => {
+            expect(testing.line("- foo")._type).toEqual('step');
+        });
+    });
 })
 
 test.skip('basic', () => {

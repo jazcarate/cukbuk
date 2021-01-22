@@ -1,4 +1,7 @@
 import { routes } from 'svelte-hash-router';
+
+import './lang/i18n';
+
 import App from './App.svelte';
 import Recipe from './Page/Recipe.svelte';
 import Favorites from './Page/Favorites.svelte';

@@ -1,0 +1,23 @@
+{
+    "recipe": {
+        "scale": "📏",
+        "weight": "🏋️‍♀️",
+        "volume": "📦",
+        "edit": "✏",
+        "link": "🔗",
+        "share": "📨",
+        "changing": "🔃",
+        "copied": "✅",
+        "ok": "✅"
+    },
+    "nav": {
+        "about": "🆘",
+        "favorites": "🌟",
+        "new": "🆕"
+    },
+    "title": {
+        "edit": "✏",
+        "favorites": "🌟",
+        "about": "🆘"
+    }
+}

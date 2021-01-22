@@ -15,15 +15,13 @@ interface Scalable {
     unit?: Unit
 }
 
-interface Time {
-    _type: 'time',
-    value: Duration
-}
 
-export type Item = Text | Scalable | Time;
+export type Item = Text | Scalable | Time | Alternative;
+type Time = { _type: 'time', value: Duration };
 type Step = { _type: 'step', value: Item[] };
 type Paragraph = { _type: 'paragraph', value: Item[] };
 type Header = { _type: 'header', value: string };
+type Alternative = { _type: 'alternative', value: Line[][] };
 export type Line = Header | Paragraph | Step;
 
 type Recipe = {

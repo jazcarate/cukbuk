@@ -19,4 +19,10 @@
 {/if}
 
 <style>
+    h2 {
+        margin-top: 1rem;
+        line-height: 1.17em;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
 </style>

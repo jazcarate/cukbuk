@@ -1,5 +1,6 @@
 <script lang="ts">
     import { routes } from "svelte-hash-router";
+    import { _ } from "svelte-i18n";
 
     import { encode } from "../lib/lzma";
     import { pushToast } from "../toastStore";
@@ -25,12 +26,12 @@
 
     async function copy() {
         await navigator.clipboard.writeText(location.toString());
-        pushToast("URL copied");
+        pushToast($_("recipe.copied"));
     }
 
     function share() {
         const shareData = {
-            title: "Cukb.uk :: Recipe",
+            title: "Cukb.uk",
             url: location.toString(),
         };
         navigator.share(shareData);
@@ -43,7 +44,7 @@
 
 <main>
     {#await edditingP}
-        <p>Changing...</p>
+        <p>{$_("recipe.changing")}...</p>
     {:then edditing}
         {#if edditing}
             <Edit bind:text />
@@ -52,14 +53,17 @@
         {/if}
 
         <span on:click={() => switchMode(!edditing)}>
-            {#if edditing}✅{:else}✏{/if}
+            {#if edditing}{$_("recipe.ok")}{:else}{$_("recipe.edit")}{/if}
         </span>
-        <span on:click={copy}>🔗</span>
+        <span on:click={copy}>{$_("recipe.link")}</span>
         {#if isMobile}
-            <span on:click={share}>📨</span>
+            <span on:click={share}>{$_("recipe.share")}</span>
         {/if}
     {/await}
 </main>
 
 <style>
+    span {
+        cursor: pointer;
+    }
 </style>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { _ } from "svelte-i18n";
+
     import { keys, weightUnits, volumeUnits } from "./lib/units";
     import { scale, volumeUnit, weightUnit } from "./myRecipeStore";
     import Scalar from "./Scalable.svelte";
@@ -18,12 +20,12 @@
 
 <main>
     <div class="option">
-        <span on:click={restartScale}>📏</span>
+        <span on:click={restartScale}>{$_("recipe.scale")}</span>
         <Scalar value={1} />
     </div>
 
     <div class="option">
-        🏋️‍♀️
+        {$_("recipe.weight")}
         <select on:change={changeWeight}>
             {#each keys(weightUnits) as unit}
                 <option value={unit} selected={$weightUnit == unit}
@@ -34,7 +36,7 @@
     </div>
 
     <div class="option">
-        📦:
+        {$_("recipe.volume")}
         <select on:change={changeVolume}>
             {#each keys(volumeUnits) as unit}
                 <option value={unit} selected={$volumeUnit == unit}

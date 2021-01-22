@@ -9,7 +9,7 @@
 
 <main>
     {#await promise}
-        <p>Interpreting...</p>
+        <p>...</p>
     {:then text}
         <Recipe {text} />
     {/await}

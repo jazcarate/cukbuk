@@ -1,0 +1,23 @@
+{
+    "recipe": {
+        "scale": "Scale",
+        "weight": "Weight",
+        "volume": "Volume",
+        "edit": "✏ Edit",
+        "link": "🔗 Copy Link",
+        "share": "📨 Share",
+        "changing": "Changing",
+        "copied": "URL Copied",
+        "ok": "✅ Ok"
+    },
+    "nav": {
+        "about": "About",
+        "favorites": "Favorites",
+        "new": "New recipe"
+    },
+    "title": {
+        "edit": "Editing",
+        "favorites": "Favorites",
+        "about": "About"
+    }
+}

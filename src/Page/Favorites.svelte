@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import { _ } from "svelte-i18n";
 
     import { listFavs } from "../lib/fav";
     import { setTitle } from "../lib/title";
@@ -11,12 +12,12 @@
     }
 
     onMount(() => {
-        setTitle("Favorites");
+        setTitle($_("title.favorites"));
     });
 </script>
 
 <main>
-    <h1>Favorites</h1>
+    <h1>{$_("nav.favorites")}</h1>
 
     <ol>
         {#each favs as fav}
