@@ -1,14 +1,16 @@
 <script lang="ts">
     import Scalable from "../Scalable.svelte";
     import Timer from "../Timer.svelte";
-    import Item from "../Item.svelte";
+    import Item from "../Step.svelte";
     import { parse } from "../lib/parser";
     import { checkFav, toggleFav } from "../lib/fav";
     import { onMount } from "svelte";
     import { setTitle } from "../lib/title";
+    import Line from "../Line.svelte";
 
     export let text: string;
     const recipe = parse(text);
+    console.log({ recipe });
     let isFav = checkFav(recipe.title);
 
     function fav() {
@@ -28,31 +30,11 @@
             {#if isFav}🌟{:else}⭐{/if}
         </span>
     </h1>
-    <ol>
+    <section>
         {#each recipe.lines as line}
-            {#if line._type == "header"}
-                <h2>{line.value}</h2>
-            {:else if line.value}
-                <Item>
-                    {#each line.value as component}
-                        {#if component._type == "text"}
-                            <span>{component.value}</span>
-                        {:else if component._type == "scalable"}
-                            <Scalable
-                                value={component.value}
-                                unit={component.unit}
-                            />
-                        {:else if component._type == "time"}
-                            <Timer value={component.value} />
-                        {/if}
-                        <span />
-                    {/each}
-                </Item>
-            {:else}
-                <p />
-            {/if}
+            <Line {line} />
         {/each}
-    </ol>
+    </section>
 </main>
 
 <style>

@@ -7,10 +7,7 @@ interface Text {
     value: string
 }
 
-interface Header {
-    _type: 'header',
-    value: string
-}
+
 
 interface Scalable {
     _type: 'scalable',
@@ -23,9 +20,11 @@ interface Time {
     value: Duration
 }
 
-type Item = Text | Scalable | Time;
-type Items = { _type: 'items', value: Item[] };
-type Line = Header | Items;
+export type Item = Text | Scalable | Time;
+type Step = { _type: 'step', value: Item[] };
+type Paragraph = { _type: 'paragraph', value: Item[] };
+type Header = { _type: 'header', value: string };
+export type Line = Header | Paragraph | Step;
 
 type Recipe = {
     title: string,
@@ -36,8 +35,12 @@ function header(value: string): Header {
     return { _type: 'header', value };
 }
 
-function items(text: string): Items {
-    return { _type: 'items', value: toItems(text) };
+function step(text: string): Step {
+    return { _type: 'step', value: toItems(text) };
+}
+
+function paragraph(text: string): Paragraph {
+    return { _type: 'paragraph', value: toItems(text) };
 }
 
 function text(value: string): Text {
@@ -54,7 +57,8 @@ function time(hours: number, minutes: number, seconds: number): Time {
 
 function line(l: string): Line {
     if (l.startsWith('# ')) return header(l.substring(2));
-    return items(l)
+    if (l.startsWith('- ')) return step(l.substring(2));
+    return paragraph(l)
 }
 
 function toItems(value: string): Item[] {

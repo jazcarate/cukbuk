@@ -42,7 +42,5 @@
         text-align: center;
         transition: width 0.4s ease-out;
         color: var(--color-primary);
-        cursor: pointer;
-        text-decoration: inherit;
     }
 </style>
