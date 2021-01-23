@@ -36,7 +36,7 @@
 
     function normalize(n: number, u: string): number {
         if (x) {
-            const [_, { values: familyUnits }] = x;
+            const [, { values: familyUnits }] = x;
             return familyUnits[currentUnit].toPivot(
                 familyUnits[u].fromPivot(n)
             );

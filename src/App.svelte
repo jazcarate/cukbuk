@@ -3,7 +3,7 @@
 	import { _ } from "svelte-i18n";
 
 	import Toast from "./Toast.svelte";
-	import Options from "./Options.svelte";
+	import Preferences from "./Preferences.svelte";
 
 	let opened: boolean = false;
 </script>
@@ -17,11 +17,11 @@
 		<a href={$routes["/r/*"].$$stringify({ _: "" })}>
 			{$_("nav.new")}
 		</a>
-		<span on:click|stopPropagation={() => (opened = true)}>Options</span>
+		<span on:click|stopPropagation={() => (opened = true)}>{$_("nav.preferences")}</span>
 	</nav>
 
 	<Router />
 </main>
 
-<Options bind:opened />
+<Preferences bind:opened />
 <Toast />

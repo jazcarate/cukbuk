@@ -14,7 +14,8 @@
     "nav": {
         "about": "🆘",
         "favorites": "🌟",
-        "new": "🆕"
+        "new": "🆕",
+        "preferences": "⚙"
     },
     "title": {
         "edit": "✏",

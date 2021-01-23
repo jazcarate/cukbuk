@@ -14,7 +14,8 @@
     "nav": {
         "about": "Sobre",
         "favorites": "Favoritos",
-        "new": "Nueva receta"
+        "new": "Nueva receta",
+        "preferences": "Preferencias"
     },
     "title": {
         "edit": "Editando",
