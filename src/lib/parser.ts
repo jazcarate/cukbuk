@@ -65,7 +65,7 @@ function toItems(value: string): Item[] {
             return time(0, parseFloat(candidateTimed[1]) || 0, parseFloat(candidateTimed[2]) || 0)
         }
 
-        const candidateScalable = v.match(/^(\d+)(\S*)$/i);
+        const candidateScalable = v.match(/^(\d+(?:\.\d+)?)(\S*)$/i);
         if (candidateScalable != null) return scalable(parseFloat(candidateScalable[1]), candidateScalable[2])
         return text(v);
     });

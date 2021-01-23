@@ -31,6 +31,9 @@ describe('line', () => {
         test('a number', () => {
             expect(testing.line("5").value).toEqual([{ _type: 'scalable', value: 5 }]);
         });
+        test('a coma number', () => {
+            expect(testing.line("5.2").value).toEqual([{ _type: 'scalable', value: 5.2 }]);
+        });
         test('a weight', () => {
             expect(testing.line("5g").value).toEqual([{ _type: 'scalable', value: 5, unit: 'g' }]);
         });

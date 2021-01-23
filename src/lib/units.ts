@@ -31,7 +31,8 @@ export const units = {
     volume: {
         pow: 1,
         values: {
-            l: pivot()
+            l: pivot(),
+            cup: linear(4.22675)
         }
     },
     temperature: {
