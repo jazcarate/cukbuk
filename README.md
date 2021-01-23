@@ -9,4 +9,4 @@ npm run dev
 
 
 ## TODO
-- Area and Temp units
+- Make it nice

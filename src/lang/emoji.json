@@ -20,5 +20,9 @@
         "edit": "✏",
         "favorites": "🌟",
         "about": "🆘"
+    },
+    "timer": {
+        "end": "⏱‼",
+        "title": "⏱"
     }
 }

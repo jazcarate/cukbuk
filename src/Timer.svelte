@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _ } from "svelte-i18n";
     import { notify, request } from "./lib/notifications";
     import { end } from "./lib/time";
     import type { Duration } from "./lib/time";
@@ -38,7 +39,7 @@
     }
 
     function notifyy(): void {
-        notify("Cukbuk :: Timer up", `Your timer is up!`);
+        notify("Cukbuk :: " + $_("timer.title"), $_("timer.end"));
     }
 
     function stop() {

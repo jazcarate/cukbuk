@@ -20,5 +20,9 @@
         "edit": "Editando",
         "favorites": "Favoritos",
         "about": "Sobre"
+    },
+    "timer": {
+        "end": "Tú temporizador terminó!",
+        "title": "Temporizador"
     }
 }

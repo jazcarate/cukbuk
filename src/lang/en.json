@@ -20,5 +20,9 @@
         "edit": "Editing",
         "favorites": "Favorites",
         "about": "About"
+    },
+    "timer": {
+        "end": "Your timer is up!",
+        "title": "Timer"
     }
 }
