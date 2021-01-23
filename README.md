@@ -9,5 +9,4 @@ npm run dev
 
 
 ## TODO
-- Rest of the units
-- Kilo units?
+- Area and Temp units

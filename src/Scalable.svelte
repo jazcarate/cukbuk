@@ -6,6 +6,7 @@
 
     export let value: number;
     export let unit: Unit = "none";
+    export let pow: number = 1;
 
     let currentUnit: Unit = unit;
     let currentValue: number = value;
@@ -18,7 +19,7 @@
                 currentUnit = $volumeUnit;
             }
         }
-        currentValue = normalize(value, unit) * $scale;
+        currentValue = normalize(value, unit) * $scale ** pow;
     }
 
     function normalize(x: number, u: Unit) {
@@ -38,10 +39,11 @@
     }
 </script>
 
-<NumberInput
-    on:input={rescale}
-    value={currentValue}
-/>
+{#if pow == 0}
+    <span>{currentValue}</span>
+{:else}
+    <NumberInput on:input={rescale} value={currentValue} />
+{/if}
 
 {#if unit !== "none"}
     <span>{currentUnit}</span>

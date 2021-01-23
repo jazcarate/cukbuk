@@ -22,6 +22,7 @@
     }
 </script>
 
+<!-- TODO: Make it so it can be non-editable (for temps, for exampel) -->
 <input
     bind:value={intermediateValue}
     on:input={input}

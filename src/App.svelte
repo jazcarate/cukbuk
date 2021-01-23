@@ -3,9 +3,12 @@
 	import { _ } from "svelte-i18n";
 
 	import Toast from "./Toast.svelte";
+	import Options from "./Options.svelte";
+
+	let opened: boolean = false;
 </script>
 
-<main>
+<main on:click={() => (opened = false)}>
 	<nav>
 		<a href={$routes["/"].$$stringify()}> Cukb.uk </a>
 		<a href={$routes["/about"].$$stringify()}>
@@ -14,9 +17,11 @@
 		<a href={$routes["/r/*"].$$stringify({ _: "" })}>
 			{$_("nav.new")}
 		</a>
+		<span on:click|stopPropagation={() => (opened = true)}>Options</span>
 	</nav>
 
 	<Router />
-
-	<Toast />
 </main>
+
+<Options bind:opened />
+<Toast />

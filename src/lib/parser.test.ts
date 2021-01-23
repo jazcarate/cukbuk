@@ -14,7 +14,7 @@ const exampleRecipe = `Cheesecake de zapallo
 - 8g azucar de mentira
 - 3g yema`
 
-describe('toItems', () => {
+describe('line', () => {
     test('one word', () => {
         expect(testing.line("foo").value).toEqual([{ _type: 'text', value: "foo" }]);
     });
@@ -27,9 +27,24 @@ describe('toItems', () => {
         ]);
     });
 
-    test('a number', () => {
-        expect(testing.line("5").value).toEqual([{ _type: 'scalable', value: 5, unit: 'none' }]);
-    });
+    describe("scalable", () => {
+        test('a number', () => {
+            expect(testing.line("5").value).toEqual([{ _type: 'scalable', value: 5, unit: 'none', pow: 1 }]);
+        });
+        test('a weight', () => {
+            expect(testing.line("5g").value).toEqual([{ _type: 'scalable', value: 5, unit: 'none', pow: 1 }]);
+        });
+        test('a volume', () => {
+            expect(testing.line("5cups").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cups', pow: 1 }]);
+        });
+
+        test('a temperature', () => {
+            expect(testing.line("5F").value).toEqual([{ _type: 'scalable', value: 5, unit: 'F', pow: 0 }]);
+        });
+        test('an area', () => {
+            expect(testing.line("5cm2").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cm', pow: 2 }]);
+        });
+    })
 
     test('number and text', () => {
         expect(testing.line("5 foo").value).toEqual([

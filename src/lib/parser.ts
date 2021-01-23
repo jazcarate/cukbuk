@@ -1,5 +1,5 @@
 import type { Duration } from "./time";
-import { allUnits, toUnit } from "./units"
+import { isTemp, toUnit } from "./units"
 import type { Unit } from "./units"
 
 interface Text {
@@ -12,7 +12,8 @@ interface Text {
 interface Scalable {
     _type: 'scalable',
     value: number,
-    unit?: Unit
+    pow: number,
+    unit?: Unit,
 }
 
 
@@ -45,8 +46,9 @@ function text(value: string): Text {
     return { _type: 'text', value };
 }
 
-function scalable(value: number, unit?: string): Scalable {
-    return { _type: 'scalable', value, unit: toUnit(unit) };
+function scalable(value: number, unit?: string, pow?: number): Scalable {
+    if (isTemp(unit)) pow = 1;
+    return { _type: 'scalable', value, pow: pow || 1, unit: toUnit(unit) };
 }
 
 function time(hours: number, minutes: number, seconds: number): Time {
@@ -68,8 +70,8 @@ function toItems(value: string): Item[] {
             return time(0, parseFloat(candidateTimed[1]) || 0, parseFloat(candidateTimed[2]) || 0)
         }
 
-        const candidateScalable = v.match(/^(\d+)(\S*)$/i);
-        if (candidateScalable != null) return scalable(parseFloat(candidateScalable[1]), candidateScalable[2])
+        const candidateScalable = v.match(/^(\d+)(\S*)(\d+)?$/i);
+        if (candidateScalable != null) return scalable(parseFloat(candidateScalable[1]), candidateScalable[2], parseFloat(candidateScalable[3]))
         return text(v);
     });
 }

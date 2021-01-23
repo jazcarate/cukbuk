@@ -13,8 +13,6 @@
     {:then text}
         <Recipe {text} />
     {/await}
-
-    <Options />
 </main>
 
 <style>
