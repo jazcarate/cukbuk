@@ -2,18 +2,8 @@
     import { _ } from "svelte-i18n";
     export let opened: boolean;
 
-    import {
-        keys,
-        weightUnits,
-        volumeUnits,
-        temperatureUnits,
-    } from "./lib/units";
-    import {
-        scale,
-        volumeUnit,
-        weightUnit,
-        temperatureUnit,
-    } from "./myRecipeStore";
+    import { units } from "./lib/units";
+    import { volumeUnit, weightUnit, temperatureUnit } from "./myRecipeStore";
 
     function changeWeight(ev: any) {
         weightUnit.set(ev.currentTarget.value);
@@ -32,7 +22,7 @@
     <div class="option">
         {$_("recipe.weight")}
         <select on:change={changeWeight}>
-            {#each keys(weightUnits) as unit}
+            {#each Object.keys(units.weight.values) as unit}
                 <option value={unit} selected={$weightUnit == unit}
                     >{unit}</option
                 >
@@ -43,7 +33,7 @@
     <div class="option">
         {$_("recipe.volume")}
         <select on:change={changeVolume}>
-            {#each keys(volumeUnits) as unit}
+            {#each Object.keys(units.volume.values) as unit}
                 <option value={unit} selected={$volumeUnit == unit}
                     >{unit}</option
                 >
@@ -53,7 +43,7 @@
     <div class="option">
         {$_("recipe.temperature")}
         <select on:change={changeTemperature}>
-            {#each keys(temperatureUnits) as unit}
+            {#each Object.keys(units.temperature.values) as unit}
                 <option value={unit} selected={$temperatureUnit == unit}
                     >{unit}</option
                 >

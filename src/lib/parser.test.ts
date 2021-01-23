@@ -29,26 +29,26 @@ describe('line', () => {
 
     describe("scalable", () => {
         test('a number', () => {
-            expect(testing.line("5").value).toEqual([{ _type: 'scalable', value: 5, unit: 'none', pow: 1 }]);
+            expect(testing.line("5").value).toEqual([{ _type: 'scalable', value: 5 }]);
         });
         test('a weight', () => {
-            expect(testing.line("5g").value).toEqual([{ _type: 'scalable', value: 5, unit: 'none', pow: 1 }]);
+            expect(testing.line("5g").value).toEqual([{ _type: 'scalable', value: 5, unit: 'g' }]);
         });
         test('a volume', () => {
-            expect(testing.line("5cups").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cups', pow: 1 }]);
+            expect(testing.line("5cups").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cups' }]);
         });
 
         test('a temperature', () => {
-            expect(testing.line("5F").value).toEqual([{ _type: 'scalable', value: 5, unit: 'F', pow: 0 }]);
+            expect(testing.line("5f").value).toEqual([{ _type: 'scalable', value: 5, unit: 'f' }]);
         });
         test('an area', () => {
-            expect(testing.line("5cm2").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cm', pow: 2 }]);
+            expect(testing.line("5cm").value).toEqual([{ _type: 'scalable', value: 5, unit: 'cm' }]);
         });
     })
 
     test('number and text', () => {
         expect(testing.line("5 foo").value).toEqual([
-            { _type: 'scalable', value: 5, unit: 'none' },
+            { _type: 'scalable', value: 5 },
             { _type: 'text', value: 'foo' }
         ]);
     });
@@ -64,7 +64,7 @@ describe('line', () => {
     test('text and number', () => {
         expect(testing.line("foo 5").value).toEqual([
             { _type: 'text', value: 'foo' },
-            { _type: 'scalable', value: 5, unit: 'none' }
+            { _type: 'scalable', value: 5 }
         ]);
     });
 

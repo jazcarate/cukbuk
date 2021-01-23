@@ -1,47 +1,47 @@
-export const weightUnits = {
-    g: 1,
-    lb: 453.592,
-    g2: 2
+interface Pivotable {
+    toPivot(x: number): number,
+    fromPivot(x: number): number,
+}
+
+interface Unit {
+    name: string,
+    pivotable: Pivotable
+}
+
+function pivot(): Pivotable {
+    return { toPivot: (x) => x, fromPivot: (x) => x };
+}
+
+function linear(k: number): Pivotable {
+    return { toPivot: (x) => x / k, fromPivot: (x) => x * k };
+}
+
+export interface UnitFamily<T> {
+    weight: T, volume: T, temperature: T
+}
+
+export const units = {
+    weight: {
+        pow: 1,
+        values: {
+            g: pivot(),
+            lb: linear(453.59237)
+        }
+    },
+    volume: {
+        pow: 1,
+        values: {
+            l: pivot()
+        }
+    },
+    temperature: {
+        pow: 0,
+        values: {
+            c: pivot(),
+            f: {
+                toPivot: (c: number) => (c * 9 / 5) + 32,
+                fromPivot: (f: number) => (f - 32) * 5 / 9,
+            }
+        }
+    }
 };
-
-export const volumeUnits = {
-    l: 1,
-};
-
-export const temperatureUnits = {
-    c: 1,
-    f: 999 // TODO
-}
-
-export const allUnits = [...keys(weightUnits), ...keys(volumeUnits), 'none'];
-
-export type WeightUnit = keyof typeof weightUnits;
-export type VolumeUnit = keyof typeof volumeUnits;
-export type TemperatureUnit = keyof typeof temperatureUnits;
-export type Unit = WeightUnit | VolumeUnit | TemperatureUnit | 'none';
-
-export function keys<K>(map: K): (keyof K)[] {
-    return Object.keys(map) as (keyof K)[];
-}
-
-export function toUnit(u: string): Unit {
-    if (allUnits.includes(u))
-        return u as Unit;
-    return 'none';
-}
-
-export function isWeight(u: Unit): u is WeightUnit {
-    return weightUnits[u] !== undefined;
-}
-
-export function isTemp(u: Unit): u is TemperatureUnit {
-    return temperatureUnits[u] !== undefined;
-}
-
-export function migrateWeight(x: number, from: WeightUnit, to: WeightUnit): number {
-    return x / weightUnits[from] * weightUnits[to];
-}
-
-export function migrateVolume(x: number, from: VolumeUnit, to: VolumeUnit): number {
-    return x / volumeUnits[from] * volumeUnits[to];
-}

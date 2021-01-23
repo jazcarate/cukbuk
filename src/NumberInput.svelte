@@ -2,10 +2,11 @@
     import { createEventDispatcher } from "svelte";
 
     export let value: number;
+    export let edit: boolean = true;
 
     const dispatch = createEventDispatcher();
 
-    let intermediateValue: string = value.toString();
+    let intermediateValue: string;
     $: intermediateValue = round(value).toString();
 
     function round(x: number): number {
@@ -22,16 +23,21 @@
     }
 </script>
 
-<!-- TODO: Make it so it can be non-editable (for temps, for exampel) -->
-<input
-    bind:value={intermediateValue}
-    on:input={input}
-    type="number"
-    step="any"
-    min="0"
-    style="width: {Math.max(3, (intermediateValue || '').toString().length) +
-        'em'}"
-/>
+{#if edit}
+    <input
+        bind:value={intermediateValue}
+        on:input={input}
+        type="number"
+        step="any"
+        min="0"
+        style="width: {Math.max(
+            3,
+            (intermediateValue || '').toString().length
+        ) + 'em'}"
+    />
+{:else}
+    <span>{intermediateValue}</span>
+{/if}
 
 <style>
     input {

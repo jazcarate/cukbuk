@@ -1,36 +1,47 @@
 <script lang="ts">
-    import { scale, volumeUnit, weightUnit } from "./myRecipeStore";
-    import { isWeight, migrateVolume, migrateWeight } from "./lib/units";
-    import type { Unit } from "./lib/units";
+    import {
+        scale,
+        volumeUnit,
+        weightUnit,
+        temperatureUnit,
+    } from "./myRecipeStore";
+    import { units } from "./lib/units";
     import NumberInput from "./NumberInput.svelte";
 
     export let value: number;
-    export let unit: Unit = "none";
-    export let pow: number = 1;
+    export let unit: string;
 
-    let currentUnit: Unit = unit;
+    let currentUnit: string = unit;
     let currentValue: number = value;
 
+    const x = Object.entries(units).find(([_, x]) => x.values[unit]);
+    const unitFamily = x ? x[0] : "none";
+    const pow = x ? x[1].pow : 1;
+
     $: {
-        if (currentUnit !== "none") {
-            if (isWeight(currentUnit)) {
+        switch (unitFamily) {
+            case "weight":
                 currentUnit = $weightUnit;
-            } else {
+                break;
+            case "volume":
                 currentUnit = $volumeUnit;
-            }
+                break;
+            case "temperature":
+                currentUnit = $temperatureUnit;
+                break;
         }
+
         currentValue = normalize(value, unit) * $scale ** pow;
     }
 
-    function normalize(x: number, u: Unit) {
-        if (u !== "none") {
-            if (isWeight(u)) {
-                return migrateWeight(x, u, $weightUnit);
-            } else {
-                return migrateVolume(x, u, $volumeUnit);
-            }
+    function normalize(n: number, u: string): number {
+        if (x) {
+            const [_, { values: familyUnits }] = x;
+            return familyUnits[currentUnit].toPivot(
+                familyUnits[u].fromPivot(n)
+            );
         } else {
-            return x;
+            return n;
         }
     }
 
@@ -39,12 +50,10 @@
     }
 </script>
 
-{#if pow == 0}
-    <span>{currentValue}</span>
-{:else}
-    <NumberInput on:input={rescale} value={currentValue} />
-{/if}
-
-{#if unit !== "none"}
+<NumberInput
+    on:input={rescale}
+    value={currentValue}
+    edit={pow != 0}
+/>{#if currentUnit}
     <span>{currentUnit}</span>
 {/if}
