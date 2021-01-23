@@ -8,7 +8,10 @@
 	let opened: boolean = false;
 </script>
 
-<main on:click={() => (opened = false)}>
+<main
+	style={`margin-left: ${opened ? 250 : 0}px`}
+	on:click={() => (opened = false)}
+>
 	<nav>
 		<a href={$routes["/"].$$stringify()}> Cukb.uk </a>
 		<a href={$routes["/about"].$$stringify()}>
@@ -17,7 +20,9 @@
 		<a href={$routes["/r/*"].$$stringify({ _: "" })}>
 			{$_("nav.new")}
 		</a>
-		<span on:click|stopPropagation={() => (opened = true)}>{$_("nav.preferences")}</span>
+		<span on:click|stopPropagation={() => (opened = true)}
+			>{$_("nav.preferences")}</span
+		>
 	</nav>
 
 	<Router />
@@ -25,3 +30,9 @@
 
 <Preferences bind:opened />
 <Toast />
+
+<style>
+	main {
+		transition: 0.5s;
+	}
+</style>

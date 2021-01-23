@@ -82,7 +82,9 @@
         overflow-x: hidden;
         padding-top: 60px;
         transition: 0.5s;
+        box-shadow: inset 0 0 10px #000000;
     }
+
     .option {
         white-space: pre;
         padding: 8px;
