@@ -44,7 +44,7 @@
 
 <main>
     {#await edditingP}
-        <p>{$_("recipe.changing")}...</p>
+        <p>{$_("loading")}...</p>
     {:then edditing}
         {#if edditing}
             <Edit bind:text />

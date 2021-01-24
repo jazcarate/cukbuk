@@ -3,10 +3,12 @@
 </script>
 
 <ol>
-    <li>
-        <input type="checkbox" bind:checked />
-        <span class:checked><slot /></span>
-    </li>
+    <label
+        ><li>
+            <input type="checkbox" bind:checked />
+            <span class:checked><slot /></span>
+        </li></label
+    >
 </ol>
 
 <style>

@@ -31,8 +31,9 @@ export const units = {
     volume: {
         pow: 1,
         values: {
-            l: pivot(),
-            cup: linear(4.22675)
+            ml: pivot(),
+            cup: linear(0.0208333),
+            teaspoon: linear(4.92892),
         }
     },
     temperature: {

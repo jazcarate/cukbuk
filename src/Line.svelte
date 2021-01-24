@@ -7,7 +7,7 @@
 </script>
 
 {#if line._type == "header"}
-    <h2>{line.value}</h2>
+    <h3>{line.value}</h3>
 {:else if line._type == "step"}
     <Step>
         <LineContent items={line.value} />

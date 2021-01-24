@@ -7,7 +7,6 @@
         "temperature": "Temperatura",
         "link": "🔗 Copiar link",
         "share": "📨 Compartir",
-        "changing": "Cambiando",
         "copied": "URL Copiada",
         "ok": "✅ Ok"
     },
@@ -25,5 +24,6 @@
     "timer": {
         "end": "Tú temporizador terminó!",
         "title": "Temporizador"
-    }
+    },
+    "loading": "Cargando"
 }

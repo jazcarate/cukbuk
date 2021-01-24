@@ -1,20 +1,25 @@
-import P, { seqMap } from "parsimmon";
+import P, { Result, Success } from "parsimmon";
 import type { Duration } from "./time";
 import { units } from "./units";
 
-export type Item = Text | Ingredient | Scalable | Time | Alternative;
+export type Vector = { value: number, unit?: string };
+
+export function isIngredient(x: Item): x is Ingredient {
+    return x._type == 'ingredient';
+}
+
+export type Item = Text | Ingredient | Scalable | Time;
 type Text = { _type: 'text', value: string }
-type Ingredient = { _type: 'ingredient', name: string, value?: number, unit?: string }
-type Scalable = { _type: 'scalable', value: number, unit?: string }
+type Ingredient = { _type: 'ingredient', name: string, value?: Vector }
+type Scalable = { _type: 'scalable', value: Vector }
 type Time = { _type: 'time', value: Duration };
-type Alternative = { _type: 'alternative', value: Item[][] };
 
 export type Line = Header | Paragraph | Step;
 type Header = { _type: 'header', value: string };
 type Paragraph = { _type: 'paragraph', value: Item[] };
 type Step = { _type: 'step', value: Item[] };
 
-type Recipe = {
+export type Recipe = {
     title: string,
     lines: Line[]
 }
@@ -48,13 +53,12 @@ const parser = P.createLanguage({
     Unit: () => P.alt(...(allUnits.map(P.string))).skip(P.string("s").or(P.succeed(1))),
     NumberUnit: r => P.seq(r.Number, r.Unit.fallback(null)),
     SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name })),
-    NumberIngredient: r => P.seqMap(r.NumberUnit.skip(P.whitespace), r.EnclosedString, ([value, unit], name) => ({ _type: 'ingredient', name, value, unit } as Ingredient)),
+    NumberIngredient: r => P.seqMap(r.NumberUnit.skip(P.whitespace), r.EnclosedString, ([value, unit], name) => ({ _type: 'ingredient', name, value: { value, unit } } as Ingredient)),
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),
-    Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value, unit })),
+    Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value: { value, unit } })),
     Time: r => P.seq(r.Number.skip(P.string(":")), r.Number, P.string(":").then(r.Number).fallback(null)).map(time),
-    Alternative: r => r.Items.sepBy1(P.string("|")).map<Alternative>(value => ({ _type: 'alternative', value })),
 
-    WrappedItem: r => P.alt(...wrap(r.Alternative, r.Time, r.Scalable, r.Ingredient)),
+    WrappedItem: r => P.alt(...wrap(r.Time, r.Scalable, r.Ingredient)),
     Item: r => P.alt<Item>(r.WrappedItem, r.Text),
     Items: r => r.Item.atLeast(1),
 
@@ -65,16 +69,16 @@ const parser = P.createLanguage({
 });
 
 
-function line(l: string): Line {
-    return parser.Line.tryParse(l);  // TODO handle failure
+async function line(l: string): Promise<Line> {
+    return parser.Line.tryParse(l);
 }
 
 export const testing = { line };
 
-export function parse(text: string): Recipe {
-    const [title, ...linesText] = text.split('\n');
+export async function parse(text: string): Promise<Recipe> {
+    const [title, ...linesText] = text.split('\n').filter(x => !!x);
 
-    const lines = linesText.map(line)
+    const lines = await Promise.all(linesText.map(line));
 
     return { title, lines };
 }

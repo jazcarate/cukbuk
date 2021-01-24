@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 const DEFAULT_WEIGHT_UNIT = 'g';
-const DEFAULT_VOLUME_UNIT = 'l';
+const DEFAULT_VOLUME_UNIT = 'ml';
 const DEFAULT_TEMPERATURE_UNIT = 'c';
 
 export const scale = writable(1);

@@ -15,31 +15,36 @@ describe('line', () => {
         });
 
         test('number and ingredient', () => {
-            expect(testing.line("[3 eggs]").value).toEqual([{ _type: 'ingredient', name: 'eggs', value: 3, unit: null }]);
+            expect(testing.line("[3 eggs]").value).toEqual([{ _type: 'ingredient', name: 'eggs', value: { value: 3, unit: null } }]);
         });
         test('a coma number', () => {
-            expect(testing.line("[5.2 lollipops]").value).toEqual([{ _type: 'ingredient', value: 5.2, name: 'lollipops', unit: null }]);
+            expect(testing.line("[5.2 lollipops]").value).toEqual([{ _type: 'ingredient', name: 'lollipops', value: { value: 5.2, unit: null } }]);
         });
         test('a fractional number', () => {
-            expect(testing.line("[3/4 lemons]").value).toEqual([{ _type: 'ingredient', value: 0.75, name: 'lemons', unit: null }]);
+            expect(testing.line("[3/4 lemons]").value).toEqual([{ _type: 'ingredient', name: 'lemons', value: { value: 0.75, unit: null } }]);
         });
 
         test('a weight', () => {
-            expect(testing.line("[5g of AP flour]").value).toEqual([{ _type: 'ingredient', value: 5, unit: 'g', name: 'of AP flour' }]);
+            expect(testing.line("[5g of AP flour]").value).toEqual([{ _type: 'ingredient', name: 'of AP flour', value: { value: 5, unit: 'g' } }]);
         });
 
         test('a volume', () => {
-            expect(testing.line("[5cups of milk]").value).toEqual([{ _type: 'ingredient', value: 5, unit: 'cup', name: 'of milk' }]);
+            expect(testing.line("[5cups of milk]").value).toEqual([{ _type: 'ingredient', name: 'of milk', value: { value: 5, unit: 'cup' } }]);
         });
 
         test('a temperature', () => {
-            expect(testing.line("[5f]").value).toEqual([{ _type: 'scalable', value: 5, unit: 'f' }]);
+            expect(testing.line("[5f]").value).toEqual([{ _type: 'scalable', value: { value: 5, unit: 'f' } }]);
+        });
+
+        test('only a number', () => {
+            expect(testing.line("[5]").value).toEqual([{ _type: 'scalable', value: { value: 5, unit: null } }]);
         });
     })
 
+
     test('number and text', () => {
         expect(testing.line("[5] foo").value).toEqual([
-            { _type: 'scalable', value: 5, unit: null },
+            { _type: 'scalable', value: { value: 5, unit: null } },
             { _type: 'text', value: ' foo' }
         ]);
     });
@@ -47,7 +52,7 @@ describe('line', () => {
     test('text and number', () => {
         expect(testing.line("foo [5]").value).toEqual([
             { _type: 'text', value: 'foo ' },
-            { _type: 'scalable', value: 5, unit: null },
+            { _type: 'scalable', value: { value: 5, unit: null } },
         ]);
     });
 
@@ -81,17 +86,6 @@ describe('line', () => {
         });
         test("p", () => {
             expect(testing.line("foo")._type).toEqual('paragraph');
-        });
-    });
-
-    describe('alternative', () => {
-        test("texts", () => {
-            expect(testing.line("[foo|bar]").value).toEqual({
-                _type: 'alternative', values: [
-                    [{ _type: 'text', value: "foo" }],
-                    [{ _type: 'text', value: "bar" }]
-                ]
-            });
         });
     });
 })

@@ -8,10 +8,7 @@
 	let opened: boolean = false;
 </script>
 
-<main
-	style={`margin-left: ${opened ? 250 : 0}px`}
-	on:click={() => (opened = false)}
->
+<main style={`left: ${opened ? 250 : 0}px`} on:click={() => (opened = false)}>
 	<nav>
 		<a href={$routes["/"].$$stringify()}> Cukb.uk </a>
 		<a href={$routes["/about"].$$stringify()}>
@@ -33,6 +30,7 @@
 
 <style>
 	main {
-		transition: 0.5s;
+		transition: left 0.5s;
+		position: relative;
 	}
 </style>

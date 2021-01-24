@@ -7,9 +7,10 @@
     } from "./myRecipeStore";
     import { units } from "./lib/units";
     import NumberInput from "./NumberInput.svelte";
+    import type { Vector } from "./lib/parser";
 
-    export let value: number;
-    export let unit: string;
+    export let vector: Vector;
+    const { unit, value } = vector;
 
     let currentUnit: string = unit;
     let currentValue: number = value;
