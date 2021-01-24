@@ -38,7 +38,7 @@
         </span>
     </h1>
     <section>
-        <h2>Ingredients</h2>
+        <h2>{$_('recipe.ingredients')}</h2>
         {#each ingredients as ingredient}
             <Step>
                 <ScalableVector vector={ingredient.value} />
@@ -47,7 +47,7 @@
         {/each}
     </section>
     <section>
-        <h2>Procedure</h2>
+        <h2>{$_('recipe.procedure')}</h2>
         {#each recipe.lines as line}
             <Line {line} />
         {/each}

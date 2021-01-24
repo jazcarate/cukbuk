@@ -8,7 +8,9 @@
         "link": "🔗 Copiar link",
         "share": "📨 Compartir",
         "copied": "URL Copiada",
-        "ok": "✅ Ok"
+        "ok": "✅ Ok",
+        "ingredients": "Ingredientes",
+        "procedure": "Procedimiento"
     },
     "nav": {
         "about": "Sobre",

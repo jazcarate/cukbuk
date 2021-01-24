@@ -1,10 +1,10 @@
 import { decode } from "./lzma";
 
 const exampleRecipe = `Chocolate Chip Cookies
-# Dry ingedients
+# Dry prep
 - Whisk together: [280g all-purpose flour], [1teaspoon baking soda], [1.5teaspoons cornstarch] and [1/2teaspoon of salt]
 Set aside.
-# Wet ingredients
+# Wet prep
 - Mix in a medium bowl [0.75cup melted unsalted butter], [150g packed light or dark brown sugar], [100g granulated sugar]
 - Fold in [225g semi-sweet chocolate chips or chocolate chunks] until no brown sugar lumps remain.
 - Whisk in [1 egg], then [1 additional egg yolk].
