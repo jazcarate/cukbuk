@@ -19,7 +19,6 @@
         {:else if component._type == "alternative"}
             <Alternative value={component.value} />
         {/if}
-        <span />
     {/each}
 </span>
 

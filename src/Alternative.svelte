@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Line as TLine } from "./lib/parser";
-    import Line from "./Line.svelte";
+    import type { Item } from "./lib/parser";
+    import LineContent from "./LineContent.svelte";
 
-    export let value: TLine[][];
+    export let value: Item[][];
     let current = 0;
 
     function cycle() {
@@ -13,9 +13,7 @@
 <div>
     <span on:click={cycle}>🔄</span>
     {current}:
-    {#each value[current] as line}
-        <Line {line} />
-    {/each}
+    <LineContent items={value[current]} />
 </div>
 
 <style>
