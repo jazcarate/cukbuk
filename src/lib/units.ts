@@ -20,6 +20,7 @@ export interface UnitFamily<T> {
     weight: T, volume: T, temperature: T
 }
 
+// All units should be lowercase to match the parser; but can have additional rendering thingamabobs
 export const units = {
     weight: {
         pow: 1,
@@ -39,10 +40,12 @@ export const units = {
     temperature: {
         pow: 0,
         values: {
-            c: pivot(),
+            c: { render: '°C', ...pivot() },
             f: {
+                render: '°F',
                 toPivot: (c: number) => (c * 9 / 5) + 32,
                 fromPivot: (f: number) => (f - 32) * 5 / 9,
+
             }
         }
     }

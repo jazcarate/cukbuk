@@ -1,4 +1,4 @@
-import P, { Result, Success } from "parsimmon";
+import P from "parsimmon";
 import type { Duration } from "./time";
 import { units } from "./units";
 
@@ -41,7 +41,7 @@ function time(parts: number[]): Time {
 
 const parser = P.createLanguage({
     _: () => P.optWhitespace,
-    Decimal: r => P.seqMap(r.Integer, P.string("."), r.Integer, (characteristic, _, mantissa) => characteristic + mantissa / 10).desc("decimal value"),
+    Decimal: r => P.seqMap(r.Integer, P.string("."), r.Integer, (characteristic, _, mantissa) => parseFloat(characteristic + _ + mantissa)).desc("decimal value"),
     Integer: () => P.digit.atLeast(1).tie().map(Number).desc("integer"),
     Fraction: r => P.seqMap(r.Integer, P.string('/'), r.Integer, (denom, _, numerator) => denom / numerator).desc("fraction"),
     Number: r => P.alt<number>(r.Fraction, r.Decimal, r.Integer),
@@ -69,8 +69,14 @@ const parser = P.createLanguage({
 });
 
 
-async function line(l: string): Promise<Line> {
-    return parser.Line.tryParse(l);
+function line(l: string): Promise<Line> {
+    return new Promise((resolve, error) => {
+        try {
+            resolve(parser.Line.tryParse(l));
+        } catch (err) {
+            error(err);
+        }
+    });
 }
 
 export const testing = { line };

@@ -56,5 +56,5 @@
     value={currentValue}
     edit={pow != 0}
 />{#if currentUnit}
-    <span>{currentUnit}</span>
+    <span>{x[1].values[currentUnit].render || currentUnit}</span>
 {/if}

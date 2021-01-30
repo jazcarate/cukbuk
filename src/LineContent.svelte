@@ -12,10 +12,12 @@
         {#if component._type == "text"}
             <span>{component.value}</span>
         {:else if component._type == "ingredient"}
-            <strong
-                ><ScalableVector vector={component.value} />
-                {component.name}</strong
-            >
+            <strong>
+                {#if component.value}
+                    <ScalableVector vector={component.value} />
+                {/if}
+                {component.name}
+            </strong>
         {:else if component._type == "scalable"}
             <ScalableVector vector={component.value} />
         {:else if component._type == "time"}

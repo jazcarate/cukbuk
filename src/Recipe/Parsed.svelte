@@ -38,16 +38,18 @@
         </span>
     </h1>
     <section>
-        <h2>{$_('recipe.ingredients')}</h2>
+        <h2>{$_("recipe.ingredients")}</h2>
         {#each ingredients as ingredient}
             <Step>
-                <ScalableVector vector={ingredient.value} />
+                {#if ingredient.value}
+                    <ScalableVector vector={ingredient.value} />
+                {/if}
                 {ingredient.name}
             </Step>
         {/each}
     </section>
     <section>
-        <h2>{$_('recipe.procedure')}</h2>
+        <h2>{$_("recipe.procedure")}</h2>
         {#each recipe.lines as line}
             <Line {line} />
         {/each}
