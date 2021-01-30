@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { _ } from "svelte-i18n";
+
     import {
         scale,
         volumeUnit,
@@ -56,5 +58,5 @@
     value={currentValue}
     edit={pow != 0}
 />{#if currentUnit}
-    <span>{x[1].values[currentUnit].render || currentUnit}</span>
+    <span>{$_("units." + currentUnit, { default: currentUnit })}</span>
 {/if}

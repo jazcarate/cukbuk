@@ -27,5 +27,9 @@
         "end": "Tú temporizador terminó!",
         "title": "Temporizador"
     },
-    "loading": "Cargando"
+    "loading": "Cargando",
+    "units": {
+        "cup": " taza",
+        "teaspoon": "cucharilla"
+    }
 }

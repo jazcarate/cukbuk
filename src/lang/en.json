@@ -27,5 +27,9 @@
         "end": "Your timer is up!",
         "title": "Timer"
     },
-    "loading": "Loading"
+    "loading": "Loading",
+    "units": {
+        "cup": " cup",
+        "teaspoon": "teaspoon"
+    }
 }

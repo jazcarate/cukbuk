@@ -24,7 +24,7 @@
         <select on:change={changeWeight}>
             {#each Object.keys(units.weight.values) as unit}
                 <option value={unit} selected={$weightUnit == unit}
-                    >{unit}</option
+                    >{$_("units." + unit, { default: unit })}</option
                 >
             {/each}
         </select>
@@ -35,7 +35,7 @@
         <select on:change={changeVolume}>
             {#each Object.keys(units.volume.values) as unit}
                 <option value={unit} selected={$volumeUnit == unit}
-                    >{unit}</option
+                    >{$_("units." + unit, { default: unit })}</option
                 >
             {/each}
         </select>
@@ -45,7 +45,7 @@
         <select on:change={changeTemperature}>
             {#each Object.keys(units.temperature.values) as unit}
                 <option value={unit} selected={$temperatureUnit == unit}
-                    >{unit}</option
+                    >{$_("units." + unit, { default: unit })}</option
                 >
             {/each}
         </select>

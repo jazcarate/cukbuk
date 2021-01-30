@@ -40,9 +40,8 @@ export const units = {
     temperature: {
         pow: 0,
         values: {
-            c: { render: '°C', ...pivot() },
+            c: pivot(),
             f: {
-                render: '°F',
                 toPivot: (c: number) => (c * 9 / 5) + 32,
                 fromPivot: (f: number) => (f - 32) * 5 / 9,
 
