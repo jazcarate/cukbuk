@@ -9,4 +9,7 @@ npm run dev
 
 
 ## TODO
-- Make it nice
+- Kilo-like units
+- Fix offline
+- ℹ icon on "real" unit/value and conversions
+- Editor

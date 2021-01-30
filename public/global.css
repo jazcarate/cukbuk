@@ -3,11 +3,10 @@
 	--color-background-input: #495856;
 	--color-primary: #9FA9A9;
 	--color-secondary: #69948B;
-
-	
 	--color-background-sidebar: #69948B;
 	--color-background-input-sidebar: #202726;
 	--color-sidebar: #202726;
+	--header-height: 2rem;
 }
 
 html, body {
@@ -26,10 +25,5 @@ body {
 }
 
 a {
-	color: var(--color-secondary);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
+	color: inherit;
 }
