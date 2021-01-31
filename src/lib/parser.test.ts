@@ -28,22 +28,22 @@ describe('line', () => {
 
         test('number and ingredient', () => {
             return expect(testing.line("[3 eggs]")).resolves.toMatchObject({
-                value: [{ _type: 'ingredient', name: 'eggs', value: { value: 3, unit: null } }]
+                value: [{ _type: 'ingredient', name: 'eggs', value: { value: 3, unit: '' } }]
             });
         });
         test('a coma number', () => {
             return expect(testing.line("[5.2 lollipops]")).resolves.toMatchObject({
-                value: [{ _type: 'ingredient', name: 'lollipops', value: { value: 5.2, unit: null } }]
+                value: [{ _type: 'ingredient', name: 'lollipops', value: { value: 5.2, unit: '' } }]
             });
         });
         test('mantissa bug', () => {
             return expect(testing.line("[60.333]")).resolves.toMatchObject({
-                value: [{ _type: 'scalable', value: { value: 60.333, unit: null } }]
+                value: [{ _type: 'scalable', value: { value: 60.333, unit: '' } }]
             });
         });
         test('a fractional number', () => {
             return expect(testing.line("[3/4 lemons]")).resolves.toMatchObject({
-                value: [{ _type: 'ingredient', name: 'lemons', value: { value: 0.75, unit: null } }]
+                value: [{ _type: 'ingredient', name: 'lemons', value: { value: 0.75, unit: '' } }]
             });
         });
 
@@ -67,7 +67,7 @@ describe('line', () => {
 
         test('only a number', () => {
             return expect(testing.line("[5]")).resolves.toMatchObject({
-                value: [{ _type: 'scalable', value: { value: 5, unit: null } }]
+                value: [{ _type: 'scalable', value: { value: 5, unit: '' } }]
             });
         });
 
@@ -82,7 +82,7 @@ describe('line', () => {
     test('number and text', () => {
         return expect(testing.line("[5] foo")).resolves.toMatchObject({
             value: [
-                { _type: 'scalable', value: { value: 5, unit: null } },
+                { _type: 'scalable', value: { value: 5, unit: '' } },
                 { _type: 'text', value: ' foo' }
             ]
         });
@@ -92,7 +92,7 @@ describe('line', () => {
         return expect(testing.line("foo [5]")).resolves.toMatchObject({
             value: [
                 { _type: 'text', value: 'foo ' },
-                { _type: 'scalable', value: { value: 5, unit: null } },
+                { _type: 'scalable', value: { value: 5, unit: '' } },
             ]
         });
     });
