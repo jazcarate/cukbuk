@@ -32,8 +32,9 @@
         "g": "g",
         "lb": "lb",
         "ml": "ml",
-        "cup": " ☕",
-        "teaspoon": "🥄",
+        "cup": "☕",
+        "tablespoon": "🥣",
+        "teaspoon": "🍵🥄",
         "f": "°F",
         "c": "°C"
     }

@@ -29,7 +29,7 @@
     },
     "loading": "Cargando",
     "units": {
-        "cup": " taza",
+        "cup": "taza",
         "teaspoon": "cucharilla"
     }
 }

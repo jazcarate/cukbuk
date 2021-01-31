@@ -10,5 +10,5 @@ addMessages('es', es);
 
 init({
     fallbackLocale: 'emoji',
-    initialLocale: getLocaleFromNavigator(),
+    initialLocale: 'asd'
 });
