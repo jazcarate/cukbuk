@@ -9,19 +9,18 @@
     import Edit from "./Edit.svelte";
 
     export let text: string;
-    let edditingP = Promise.resolve(false);
+    let edditing = false;
     let recipeRoute = $routes["/r/*"];
 
     function switchMode(mode: boolean): void {
-        edditingP = encode(text)
-            .then((newKey) =>
-                history.pushState(
-                    null,
-                    null,
-                    recipeRoute.$$stringify({ _: newKey })
-                )
+        edditing = mode;
+        encode(text).then((newKey) =>
+            history.pushState(
+                null,
+                null,
+                recipeRoute.$$stringify({ _: newKey })
             )
-            .then(() => mode);
+        );
     }
 
     async function copy() {
@@ -40,26 +39,29 @@
     let isMobile =
         typeof window.orientation !== "undefined" ||
         navigator.userAgent.indexOf("IEMobile") !== -1;
+
+    function edit(ev: KeyboardEvent) {
+        if (ev.code == "Enter") {
+            switchMode(!ev.shiftKey);
+        }
+    }
 </script>
 
+<svelte:window on:keydown={edit} />
 <main>
-    {#await edditingP}
-        <p>{$_("loading")}...</p>
-    {:then edditing}
-        {#if edditing}
-            <Edit bind:text />
-        {:else}
-            <Doable bind:text />
-        {/if}
+    {#if edditing}
+        <Edit bind:text />
+    {:else}
+        <Doable bind:text />
+    {/if}
 
-        <span on:click={() => switchMode(!edditing)}>
-            {#if edditing}{$_("recipe.ok")}{:else}{$_("recipe.edit")}{/if}
-        </span>
-        <span on:click={copy}>{$_("recipe.link")}</span>
-        {#if isMobile}
-            <span on:click={share}>{$_("recipe.share")}</span>
-        {/if}
-    {/await}
+    <span on:click={() => switchMode(!edditing)}>
+        {#if edditing}{$_("recipe.ok")}{:else}{$_("recipe.edit")}{/if}
+    </span>
+    <span on:click={copy}>{$_("recipe.link")}</span>
+    {#if isMobile}
+        <span on:click={share}>{$_("recipe.share")}</span>
+    {/if}
 </main>
 
 <style>
