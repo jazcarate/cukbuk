@@ -1,6 +1,6 @@
 import P from "parsimmon";
 import type { Duration } from "./time";
-import { units } from "./units";
+import { allUnits } from "./units";
 
 export type Vector = { value: number, unit?: string };
 
@@ -26,8 +26,6 @@ export type Recipe = {
 
 const OPEN_RECIPE_DSL = "["
 const CLOSE_RECIPE_DSL = "]";
-
-const allUnits = Object.values(units).map(({ values }) => Object.keys(values)).reduce((acc, val) => acc.concat(val), []);
 
 function wrap<T>(...xs: P.Parser<T>[]): P.Parser<T>[] {
     return xs.map(x => x.trim(P.optWhitespace)

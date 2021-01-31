@@ -7,7 +7,7 @@
         weightUnit,
         temperatureUnit,
     } from "./myRecipeStore";
-    import { units } from "./lib/units";
+    import { find, transform } from "./lib/units";
     import NumberInput from "./NumberInput.svelte";
     import type { Vector } from "./lib/parser";
 
@@ -17,12 +17,10 @@
     let currentUnit: string = unit;
     let currentValue: number = value;
 
-    const x = Object.entries(units).find(([_, x]) => x.values[unit]);
-    const unitFamily = x ? x[0] : "none";
-    const pow = x ? x[1].pow : 1;
+    const unitDefinition = find(unit);
 
     $: {
-        switch (unitFamily) {
+        switch (unitDefinition[0]) {
             case "weight":
                 currentUnit = $weightUnit;
                 break;
@@ -34,7 +32,7 @@
                 break;
         }
 
-        currentValue = normalize(value, unit) * $scale ** pow;
+        currentValue = normalize(value, unit) * $scale;
     }
 
     function normalize(n: number, u: string): number {
