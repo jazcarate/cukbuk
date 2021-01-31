@@ -24,14 +24,16 @@ function linear(k: number): Pivotable {
 }
 
 export interface UnitType<T> {
-    weight: T, volume: T, temperature: T
+    weight: T, volume: T, temperature: T, amount: T
 }
 
 function entries<T>(k: UnitType<T>): [keyof UnitType<T>, T][] {
     return Object.entries(k) as [keyof UnitType<T>, T][];
 }
 
-export function find(x: string): [keyof UnitType<any>, string, Unit] | undefined {
+export type UnitDefinition = [keyof UnitType<any>, string, Unit];
+
+export function find(x: string): UnitDefinition | undefined {
     const found = entries(units)
         .find(([, usage]) =>
             Object.values(usage.families).find((family) =>
@@ -59,21 +61,28 @@ function fit(value: number, family: Family): [number, string] {
     return [val, name];
 }
 
+interface UnitValue {
+    pivotValue: number,
+    value: number,
+    unit: string
+}
 
 // from: unit, to: family
-export function transform(x: number, from: string, to: string): [number, string] {
+export function transform(x: number, from: string, to: string): UnitValue | undefined {
     const fromUnit = find(from);
-    if (fromUnit == undefined) return [x, from];
+    if (fromUnit == undefined) return undefined;
 
     const toFamily = units[fromUnit[0]].families[to];
 
-    if (toFamily == undefined) return [x, from];
+    if (toFamily == undefined) return undefined;
 
-    return fit(fromUnit[2].pivotable.toPivot(x), toFamily);
+    const pivotValue = fromUnit[2].pivotable.toPivot(x);
+    const [value, unit] = fit(pivotValue, toFamily);
+    return { pivotValue, value, unit };
 }
 
 // All units should be lowercase to match the parser; but can have additional rendering thingamabobs
-const units: UnitType<Usage> = {
+export const units: UnitType<Usage> = {
     weight: {
         scalable: true,
         families: {
@@ -118,6 +127,12 @@ const units: UnitType<Usage> = {
                     fromPivot: (c: number) => (c * 9 / 5) + 32,
                 }
             }]
+        }
+    },
+    amount: {
+        scalable: true,
+        families: {
+            _: [{ name: '', pivotable: pivot() }],
         }
     }
 };

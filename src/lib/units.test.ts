@@ -2,8 +2,8 @@ import { find, transform } from './units';
 
 expect.extend({
     toBeU(received, val, u) {
-        expect(received[1]).toBe(u);
-        expect(received[0]).toBeCloseTo(val);
+        expect(received.unit).toBe(u);
+        expect(received.value).toBeCloseTo(val);
         return {
             pass: true,
             message: () => '',
@@ -49,32 +49,26 @@ describe('units', () => {
     describe("transform", () => {
         describe("happy paths", () => {
             test('to same family', () => {
-                const [val, unit] = transform(300, 'g', 'metric');
-                expect(val).toBe(300);
-                expect(unit).toBe('g');
+                expect(transform(300, 'g', 'metric')).toBeU(300, 'g');
             });
 
             test('to another family', () => {
-                const [val, unit] = transform(300, 'g', 'imperial');
-                expect(val).toBeCloseTo(10.58);
-                expect(unit).toBe('once');
+                expect(transform(300, 'g', 'imperial')).toBeU(10.58, 'once');
             });
 
             test('to another family, different scale', () => {
-                const [val, unit] = transform(500, 'g', 'imperial');
-                expect(val).toBeCloseTo(1.10231);
-                expect(unit).toBe('lb');
+                expect(transform(500, 'g', 'imperial')).toBeU(1.10231, 'lb');
             });
             test('to same family, fits', () => {
-                const [val, unit] = transform(3000, 'g', 'metric');
-                expect(val).toBe(3);
-                expect(unit).toBe('kg');
+                expect(transform(3000, 'g', 'metric')).toBeU(3, 'kg');
             });
 
             test('to another family not from the pivot', () => {
-                const [val, unit] = transform(2, 'kg', 'imperial');
-                expect(val).toBeCloseTo(4.41);
-                expect(unit).toBe('lb');
+                expect(transform(2, 'kg', 'imperial')).toBeU(4.41, 'lb');
+            });
+
+            test('amounts', () => {
+                expect(transform(300, '', '_')).toBeU(300, '');
             });
         });
 
@@ -119,11 +113,11 @@ describe('units', () => {
 
         describe("errors", () => {
             test('to different families', () => {
-                expect(transform(300, 'g', 'customary')).toBeU(300, 'g');
+                expect(transform(300, 'g', 'customary')).toBeUndefined();
             });
 
             test('non existent unit', () => {
-                expect(transform(300, 'foo', 'customary')).toBeU(300, 'foo');
+                expect(transform(300, 'foo', 'customary')).toBeUndefined();
             });
         })
     });

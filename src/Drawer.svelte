@@ -4,18 +4,22 @@
     export let opened: boolean;
 
     import { units } from "./lib/units";
-    import { volumeUnit, weightUnit, temperatureUnit } from "./myRecipeStore";
+    import {
+        volumeFamily,
+        weightFamily,
+        temperatureFamily,
+    } from "./myRecipeStore";
 
     function changeWeight(ev: any) {
-        weightUnit.set(ev.currentTarget.value);
+        weightFamily.set(ev.currentTarget.value);
     }
 
     function changeVolume(ev: any) {
-        volumeUnit.set(ev.currentTarget.value);
+        volumeFamily.set(ev.currentTarget.value);
     }
 
     function changeTemperature(ev: any) {
-        temperatureUnit.set(ev.currentTarget.value);
+        temperatureFamily.set(ev.currentTarget.value);
     }
 </script>
 
@@ -48,9 +52,13 @@
         <div class="option">
             {$_("recipe.weight")}<br />
             <select on:change={changeWeight}>
-                {#each Object.keys(units.weight.values) as unit}
-                    <option value={unit} selected={$weightUnit == unit}
-                        >{$_("units." + unit, { default: unit })}</option
+                {#each Object.keys(units.weight.families) as family}
+                    <option value={family} selected={$weightFamily == family}
+                        >{units.weight.families[family]
+                            .map(({ name }) =>
+                                $_("units." + name, { default: name })
+                            )
+                            .join(", ")}</option
                     >
                 {/each}
             </select>
@@ -59,9 +67,13 @@
         <div class="option">
             {$_("recipe.volume")}<br />
             <select on:change={changeVolume}>
-                {#each Object.keys(units.volume.values) as unit}
-                    <option value={unit} selected={$volumeUnit == unit}
-                        >{$_("units." + unit, { default: unit })}</option
+                {#each Object.keys(units.volume.families) as family}
+                    <option value={family} selected={$volumeFamily == family}
+                        >{units.volume.families[family]
+                            .map(({ name }) =>
+                                $_("units." + name, { default: name })
+                            )
+                            .join(", ")}</option
                     >
                 {/each}
             </select>
@@ -69,9 +81,15 @@
         <div class="option">
             {$_("recipe.temperature")}<br />
             <select on:change={changeTemperature}>
-                {#each Object.keys(units.temperature.values) as unit}
-                    <option value={unit} selected={$temperatureUnit == unit}
-                        >{$_("units." + unit, { default: unit })}</option
+                {#each Object.keys(units.temperature.families) as family}
+                    <option
+                        value={family}
+                        selected={$temperatureFamily == family}
+                        >{units.temperature.families[family]
+                            .map(({ name }) =>
+                                $_("units." + name, { default: name })
+                            )
+                            .join(", ")}</option
                     >
                 {/each}
             </select>

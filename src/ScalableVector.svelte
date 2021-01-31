@@ -3,58 +3,58 @@
 
     import {
         scale,
-        volumeUnit,
-        weightUnit,
-        temperatureUnit,
+        volumeFamily,
+        weightFamily,
+        temperatureFamily,
     } from "./myRecipeStore";
-    import { find, transform } from "./lib/units";
+    import { find, transform, units } from "./lib/units";
+    import type { UnitDefinition } from "./lib/units";
     import NumberInput from "./NumberInput.svelte";
     import type { Vector } from "./lib/parser";
 
     export let vector: Vector;
     const { unit, value } = vector;
 
+    let currentFamily: string;
     let currentUnit: string = unit;
     let currentValue: number = value;
 
-    const unitDefinition = find(unit);
+    const unitDefinition: UnitDefinition = unit
+        ? find(unit)
+        : ["amount", "_", units.amount.families._[0]];
+    const familyDef = units[unitDefinition[0]];
 
     $: {
         switch (unitDefinition[0]) {
             case "weight":
-                currentUnit = $weightUnit;
+                currentFamily = $weightFamily;
                 break;
             case "volume":
-                currentUnit = $volumeUnit;
+                currentFamily = $volumeFamily;
                 break;
             case "temperature":
-                currentUnit = $temperatureUnit;
+                currentFamily = $temperatureFamily;
                 break;
         }
 
-        currentValue = normalize(value, unit) * $scale;
-    }
-
-    function normalize(n: number, u: string): number {
-        if (x) {
-            const [, { values: familyUnits }] = x;
-            return familyUnits[currentUnit].toPivot(
-                familyUnits[u].fromPivot(n)
-            );
-        } else {
-            return n;
-        }
+        const transformed = transform(value, unit || "", currentFamily || "_");
+        currentUnit = transformed.unit;
+        currentValue = transformed.value * $scale;
     }
 
     function rescale({ detail: newValue }: any) {
-        scale.set(normalize(newValue, currentUnit) / normalize(value, unit));
+        scale.set(
+            transform(newValue, currentUnit || "", currentFamily || "_")
+                .pivotValue /
+                transform(value, unit || "", currentFamily || "_").pivotValue
+        );
     }
 </script>
 
 <NumberInput
     on:input={rescale}
     value={currentValue}
-    edit={pow != 0}
+    edit={familyDef.scalable}
 />{#if currentUnit}
     <span>{$_("units." + currentUnit, { default: currentUnit })}</span>
 {/if}

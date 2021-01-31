@@ -1,11 +1,8 @@
 import { writable } from 'svelte/store';
-
-const DEFAULT_WEIGHT_UNIT = 'g';
-const DEFAULT_VOLUME_UNIT = 'ml';
-const DEFAULT_TEMPERATURE_UNIT = 'c';
+import { units } from './lib/units';
 
 export const scale = writable(1);
 
-export const weightUnit = writable(DEFAULT_WEIGHT_UNIT);
-export const temperatureUnit = writable(DEFAULT_TEMPERATURE_UNIT);
-export const volumeUnit = writable(DEFAULT_VOLUME_UNIT);
+export const weightFamily = writable(Object.keys(units.weight.families)[0]);
+export const temperatureFamily = writable(Object.keys(units.temperature.families)[0]);
+export const volumeFamily = writable(Object.keys(units.volume.families)[0]);
