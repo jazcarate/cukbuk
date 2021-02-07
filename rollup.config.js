@@ -25,7 +25,10 @@ export default {
 			// stringify the object       
 			__cukbuk: JSON.stringify({
 				isProd: production,
-				env: config().parsed
+				env: {
+					IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,
+					...config().parsed
+				}
 			}),
 		}),
 		json(),
