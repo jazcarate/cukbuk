@@ -118,6 +118,20 @@ describe('line', () => {
 
     });
 
+    describe('image', () => {
+        test("simple", () => {
+            return expect(testing.line("[!https://cataas.com/cat]")).resolves.toMatchObject({
+                value: [{ _type: 'image', value: 'https://cataas.com/cat' }]
+            });
+        });
+
+        test("not a link", () => {
+            return expect(testing.line("[!foo]")).resolves.toMatchObject({
+                value: [{ _type: 'ingredient', name: '!foo' }]
+            });
+        });
+    })
+
     describe('types', () => {
         test("step", () => {
             return expect(testing.line("- foo")).resolves.toMatchObject({ _type: 'step' });

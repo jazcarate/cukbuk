@@ -2,6 +2,8 @@
 
 ## Get started
 
+Copy `example.env` to `.env` and use your desired environment configuration.
+
 ```bash
 npm install
 npm run dev
@@ -9,7 +11,5 @@ npm run dev
 
 # TODO
 - About
-- Images in recipe ()
 - Docs DSL
-- Edditing unsaves?
 - label checkbox over step clicky bug

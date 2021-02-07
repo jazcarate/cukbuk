@@ -3,9 +3,32 @@
 
     import { _ } from "svelte-i18n";
     import { setTitle } from "../lib/title";
+    import ImageUpload from "../ImageUpload.svelte";
 
     export let text: string;
-    let recipeInput: HTMLElement;
+    let recipeInput: HTMLTextAreaElement;
+
+    function addImage({ detail: link }) {
+        const textToInsert = `[!${link}]`;
+        recipeInput.focus();
+        const isSuccess = document.execCommand(
+            "insertText",
+            false,
+            textToInsert
+        );
+
+        // Firefox (non-standard method)
+        if (!isSuccess && typeof recipeInput.setRangeText === "function") {
+            const start = recipeInput.selectionStart;
+            recipeInput.setRangeText(textToInsert);
+            recipeInput.selectionStart = recipeInput.selectionEnd =
+                start + textToInsert.length;
+
+            const e = document.createEvent("UIEvent");
+            e.initEvent("input", true, false);
+            recipeInput.dispatchEvent(e);
+        }
+    }
 
     onMount(() => {
         recipeInput.focus();
@@ -15,6 +38,7 @@
 
 <main>
     <textarea bind:this={recipeInput} bind:value={text} />
+    <ImageUpload on:input={addImage} />
 </main>
 
 <style>

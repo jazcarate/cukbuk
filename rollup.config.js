@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -6,6 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
+import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,6 +21,13 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace({
+			// stringify the object       
+			__cukbuk: JSON.stringify({
+				isProd: production,
+				env: config().parsed
+			}),
+		}),
 		json(),
 		svelte({
 			preprocess: sveltePreprocess(),

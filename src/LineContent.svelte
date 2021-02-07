@@ -22,6 +22,8 @@
             <ScalableVector vector={component.value} />
         {:else if component._type == "time"}
             <Timer value={component.value} />
+        {:else if component._type == "image"}
+            <img src={component.value} />
         {/if}
     {/each}
 </span>
