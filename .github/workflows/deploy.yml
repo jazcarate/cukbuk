@@ -1,3 +1,5 @@
+name: Deploy
+
 on:
   push:
     branches:
@@ -7,6 +9,8 @@ jobs:
   build-deploy:
     name: Build and deploy the cukb.uk website
     runs-on: ubuntu-latest
+    env:
+      IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v1
