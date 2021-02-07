@@ -32,6 +32,12 @@ export default {
 			}),
 		}),
 		json(),
+		commonjs(),
+		typescript({
+			sourceMap: !production,
+			inlineSources: !production,
+			resolveJsonModule: true
+		}),
 		svelte({
 			preprocess: sveltePreprocess(),
 			dev: !production,
@@ -42,11 +48,6 @@ export default {
 		resolve({
 			browser: true,
 			dedupe: ['svelte']
-		}),
-		commonjs(),
-		typescript({
-			sourceMap: !production,
-			inlineSources: !production
 		}),
 		!production && serve(),
 		!production && livereload('public'),

@@ -10,7 +10,7 @@
   ],
   "compilerOptions": {
     "types": [
-      "jest"
+      "svelte", "jest"
     ]
   }
 }
