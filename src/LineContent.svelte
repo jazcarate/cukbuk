@@ -23,6 +23,7 @@
         {:else if component._type == "time"}
             <Timer value={component.value} />
         {:else if component._type == "image"}
+            <!-- svelte-ignore a11y-missing-attribute -->
             <img src={component.value} />
         {/if}
     {/each}
