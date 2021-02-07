@@ -10,7 +10,8 @@
         "copied": "URL Copied",
         "ok": "✅ Ok",
         "ingredients": "Ingredients",
-        "procedure": "Procedure"
+        "procedure": "Procedure",
+        "upload": "Upload an image"
     },
     "nav": {
         "about": "About",
@@ -29,5 +30,8 @@
     },
     "loading": "Loading",
     "units": {
+    },
+    "placeholder":{
+        "img": "Image"
     }
 }

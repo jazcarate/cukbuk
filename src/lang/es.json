@@ -10,7 +10,8 @@
         "copied": "URL Copiada",
         "ok": "✅ Ok",
         "ingredients": "Ingredientes",
-        "procedure": "Procedimiento"
+        "procedure": "Procedimiento",
+        "upload": "Sube una imagen"
     },
     "nav": {
         "about": "Sobre",
@@ -31,5 +32,8 @@
     "units": {
         "cup": "taza",
         "teaspoon": "cucharilla"
+    },
+    "placeholder":{
+        "img": "Imagen"
     }
 }

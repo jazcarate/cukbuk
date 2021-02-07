@@ -125,6 +125,12 @@ describe('line', () => {
             });
         });
 
+        test("with name", () => {
+            return expect(testing.line("[!a cat|https://cataas.com/cat]")).resolves.toMatchObject({
+                value: [{ _type: 'image', name: 'a cat', value: 'https://cataas.com/cat' }]
+            });
+        });
+
         test("not a link", () => {
             return expect(testing.line("[!foo]")).resolves.toMatchObject({
                 value: [{ _type: 'ingredient', name: '!foo' }]

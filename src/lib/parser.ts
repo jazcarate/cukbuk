@@ -11,7 +11,7 @@ export function isIngredient(x: Item): x is Ingredient {
 export type Item = Text | Ingredient | Scalable | Time | Image;
 type Text = { _type: 'text', value: string }
 type Ingredient = { _type: 'ingredient', name: string, value?: Vector }
-type Image = { _type: 'image', value: string }
+type Image = { _type: 'image', value: string, name?: string }
 type Scalable = { _type: 'scalable', value: Vector }
 type Time = { _type: 'time', value: Duration };
 
@@ -56,8 +56,12 @@ const parser = P.createLanguage({
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),
     Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value: { value, unit } })),
     Time: r => P.seq(r.Number.skip(P.string(":")), r.Number, P.string(":").then(r.Number).fallback(null)).map(time),
-    Image: () => P.string("!").then(
-        P.takeWhile(c => c !== CLOSE_RECIPE_DSL).assert(url => url.startsWith("http"), "a url")).map<Image>(value => ({ _type: 'image', value })),
+
+    ImageURL: () => P.takeWhile(c => c !== CLOSE_RECIPE_DSL).assert(url => url.startsWith("http"), "a url"),
+    UnnamedImage: r => r.ImageURL.map<Image>(value => ({ _type: 'image', value })),
+    NamedImage: r => P.seq(
+        P.takeWhile(c => c !== '|').skip(P.string('|')), r.ImageURL).map<Image>(([name, value]) => ({ _type: 'image', value, name })),
+    Image: r => P.string("!").then(r.NamedImage.or(r.UnnamedImage)),
 
     WrappedItem: r => P.alt(...wrap(r.Image, r.Time, r.Scalable, r.Ingredient)),
     Item: r => P.alt<Item>(r.WrappedItem, r.Text),

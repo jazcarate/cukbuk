@@ -8,8 +8,8 @@
     export let text: string;
     let recipeInput: HTMLTextAreaElement;
 
-    function addImage({ detail: link }) {
-        const textToInsert = `[!${link}]`;
+    function addImage({ detail: { link, name } }) {
+        const textToInsert = `[!${name || $_("placeholder.img")}|${link}]`;
         recipeInput.focus();
         const isSuccess = document.execCommand(
             "insertText",

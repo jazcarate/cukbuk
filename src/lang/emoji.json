@@ -10,7 +10,8 @@
         "copied": "✅",
         "ok": "✅",
         "ingredients": "🛒",
-        "procedure": "🍽️"
+        "procedure": "🍽️",
+        "upload": "⬆🖼"
     },
     "nav": {
         "about": "🆘",
@@ -37,5 +38,8 @@
         "teaspoon": "🍵🥄",
         "f": "°F",
         "c": "°C"
+    },
+    "placeholder":{
+        "img": "🖼"
     }
 }

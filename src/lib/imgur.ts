@@ -1,12 +1,12 @@
 type URL = string;
 
-export async function upload(files: FileList): Promise<URL> {
+export async function upload(file: File): Promise<URL> {
     if (!__cukbuk.isProd) {
         return Promise.resolve('https://cataas.com/cat');
     }
 
     const formData = new FormData();
-    formData.append('image', files[0]);
+    formData.append('image', file);
 
     const response = await fetch('https://api.imgur.com/3/image',
         {
