@@ -24,7 +24,7 @@
 <style>
     footer {
         width: 100%;
-        height: 3em;
+        height: var(--footer-height);
         font-size: 0.75rem;
         background: black;
         color: var(--color-secondary);

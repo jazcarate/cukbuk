@@ -21,24 +21,32 @@
 
 <svelte:window bind:scrollY={y} />
 
-<nav class={y == 0 ? "" : "shadow"} style={`top: ${pinned ? "0" : "-80px"}`}>
-	<span class="clickable" on:click={() => (opened = !opened)}>
-		<Burger />
-	</span>
-	<a style="flex: 1" href={$routes["/"].$$stringify()}>Cukb.uk</a>
-	<a href={$routes["/new"].$$stringify()}>➕</a>
-</nav>
+<div class="fill-height">
+	<nav
+		class={y == 0 ? "" : "shadow"}
+		style={`top: ${pinned ? "0" : "-80px"}`}
+	>
+		<span class="clickable" on:click={() => (opened = !opened)}>
+			<Burger />
+		</span>
+		<a style="flex: 1" href={$routes["/"].$$stringify()}>Cukb.uk</a>
+		<a href={$routes["/new"].$$stringify()}>➕</a>
+	</nav>
 
-<main on:click={() => (opened = false)}>
-	<Router />
-</main>
+	<main on:click={() => (opened = false)}>
+		<Router />
+	</main>
 
-<Drawer bind:opened />
-<Toast />
+	<Drawer bind:opened />
+	<Toast />
+</div>
 
 <Footer />
 
 <style>
+	.fill-height {
+		min-height: calc(100vh - var(--footer-height));
+	}
 	.clickable {
 		cursor: pointer;
 	}

@@ -6,7 +6,9 @@
 	--color-background-sidebar: #69948B;
 	--color-background-input-sidebar: #202726;
 	--color-sidebar: #202726;
+	
 	--header-height: 4rem;
+	--footer-height: 2rem;
 }
 
 html, body {
