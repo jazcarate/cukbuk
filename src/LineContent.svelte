@@ -1,6 +1,7 @@
 <script lang="ts">
     import ScalableVector from "./ScalableVector.svelte";
     import Timer from "./Timer.svelte";
+    import Image from "./Image.svelte";
     import type { Item } from "./lib/parser";
 
     export let items: Item[];
@@ -23,7 +24,7 @@
         {:else if component._type == "time"}
             <Timer value={component.value} />
         {:else if component._type == "image"}
-            <img src={component.value} alt={component.name} />
+            <Image src={component.value} alt={component.name} />
         {/if}
     {/each}
 </span>
