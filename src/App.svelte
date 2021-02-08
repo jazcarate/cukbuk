@@ -5,6 +5,7 @@
 	import Toast from "./Toast.svelte";
 	import Drawer from "./Drawer.svelte";
 	import Burger from "./Burger.svelte";
+	import Footer from "./Footer.svelte";
 
 	let opened: boolean = false;
 	let pinned: boolean = false;
@@ -34,6 +35,8 @@
 
 <Drawer bind:opened />
 <Toast />
+
+<Footer />
 
 <style>
 	.clickable {
