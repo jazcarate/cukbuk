@@ -9,15 +9,19 @@
     }
 
     function modalAction(node: HTMLElement) {
-        const returnFn = [];
+        const original = document.body.style.overflow;
         if (document.body.style.overflow !== "hidden") {
-            const original = document.body.style.overflow;
             document.body.style.overflow = "hidden";
-            returnFn.push(() => {
-                document.body.style.overflow = original;
-            });
         }
         node.addEventListener("keydown", keydown);
+        node.focus();
+
+        return {
+            destroy() {
+                node.removeEventListener("keydown", keydown);
+                document.body.style.overflow = original;
+            },
+        };
     }
 </script>
 
