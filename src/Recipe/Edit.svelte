@@ -39,15 +39,17 @@
 <main>
     <textarea bind:this={recipeInput} bind:value={text} />
     <ImageUpload on:input={addImage} />
+    
 </main>
 
 <style>
     textarea {
-        width: 100%;
-        height: 80vh;
+        width: calc(100% - 3em);
+        height: calc(80vh - 3em);
         border: 1px solid var(--color-background-input);
         background: none;
         color: inherit;
         font-family: inherit;
+        padding: 1em;
     }
 </style>

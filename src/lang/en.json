@@ -11,7 +11,37 @@
         "ok": "✅ Ok",
         "ingredients": "Ingredients",
         "procedure": "Procedure",
-        "upload": "Upload an image"
+        "upload": "Upload an image",
+        "help": "❓ Help"
+    },
+    "help": {
+        "preface": "Bells and whistles to write an awesome recipe\nUsing these formats will make your recipe able to scale, change units and show ingredients\nAll these markdown is wrapped with square brackets ([])",
+        "list": {
+            "step": {
+                "example": "- sift the flour",
+                "description": "Any line starting with a hyphen (-) will be a completable step."
+            },
+            "heading": {
+                "example": "# Wet Ingredients",
+                "description": "Any line starting with a hash (#) will be a heading."
+            },
+            "ingredient": {
+                "example": "[pinch of salt]",
+                "description": "Any ingredients will show them at the top in the ingredient list."
+            },
+            "scalable": {
+                "example": "[280g all-purpose flour]",
+                "description": "Add a number at the beginning and you can now scale them. Units are optional and should not have a space between the number and the value."
+            },
+            "time": {
+                "example": "[30:00]",
+                "description": "Timers can be either hh:mm:ss or mm:ss"
+            },
+            "image": {
+                "example": "[!some image|http://example.com/image.png]",
+                "description": "Images can be uploaded from here directly onto Imgur, or use whatever image hosting you prefer. A name is optional (and highly encouraged)."
+            }
+        }
     },
     "nav": {
         "about": "About",
@@ -29,9 +59,8 @@
         "title": "Timer"
     },
     "loading": "Loading",
-    "units": {
-    },
-    "placeholder":{
+    "units": {},
+    "placeholder": {
         "img": "Image"
     }
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { routes } from "svelte-hash-router";
     import { _ } from "svelte-i18n";
+    import HelpModal from "../HelpModal.svelte";
 
     import { encode } from "../lib/lzma";
     import { pushToast } from "../toastStore";
@@ -61,6 +62,9 @@
     <span on:click={copy}>{$_("recipe.link")}</span>
     {#if isMobile}
         <span on:click={share}>{$_("recipe.share")}</span>
+    {/if}
+    {#if edditing}
+        <HelpModal />
     {/if}
 </main>
 

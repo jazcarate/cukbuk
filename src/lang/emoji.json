@@ -11,7 +11,8 @@
         "ok": "✅",
         "ingredients": "🛒",
         "procedure": "🍽️",
-        "upload": "⬆🖼"
+        "upload": "⬆🖼",
+        "help": "❓"
     },
     "nav": {
         "about": "🆘",
@@ -39,7 +40,7 @@
         "f": "°F",
         "c": "°C"
     },
-    "placeholder":{
+    "placeholder": {
         "img": "🖼"
     }
 }

@@ -11,7 +11,37 @@
         "ok": "✅ Ok",
         "ingredients": "Ingredientes",
         "procedure": "Procedimiento",
-        "upload": "Sube una imagen"
+        "upload": "Sube una imagen",
+        "help": "❓ Ayuda"
+    },
+    "help": {
+        "preface": "Haciendo uso de estos formatos podrás hacer que tu receta sea scale, se puedan cambiar unidades y mostrar la lista de ingredientes\nTodo este formato está encerrado por corchetes ([])",
+        "list": {
+            "step": {
+                "example": "- tamizar la harina",
+                "description": "Cualquier linea que comienze con un guión (-) será un paso completable."
+            },
+            "heading": {
+                "example": "# Ingredientes humedos",
+                "description": "Cualquier linea que comienze con un hash (#) será un titulo."
+            },
+            "ingredient": {
+                "example": "[pizca de sal]",
+                "description": "Cualquier ingrediente se mostrará en la lista de ingredientes."
+            },
+            "scalable": {
+                "example": "[280g harina]",
+                "description": "Agrega un numero al pirincipio y ahora el ingrediente se podrá escalar. Las unidades son opcionales y no debe haber un espacio entre ellas y el número."
+            },
+            "time": {
+                "example": "[30:00]",
+                "description": "Timers pueden representarse tanto hh:mm:ss como mm:ss"
+            },
+            "image": {
+                "example": "[!some image|http://example.com/image.png]",
+                "description": "Imagenes se pueden subir desde aquí directamente a Imgur, o usar cualquier servicio que prefieras. Un nombre es opcional (y muy animado)."
+            }
+        }
     },
     "nav": {
         "about": "Sobre",
@@ -33,7 +63,7 @@
         "cup": "taza",
         "teaspoon": "cucharilla"
     },
-    "placeholder":{
+    "placeholder": {
         "img": "Imagen"
     }
 }

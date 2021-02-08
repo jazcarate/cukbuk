@@ -11,5 +11,4 @@ npm run dev
 
 # TODO
 - About
-- Docs DSL
 - label checkbox over step clicky bug
