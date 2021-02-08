@@ -10,7 +10,10 @@ import About from './Page/About.svelte';
 routes.set({
 	'/r/*': Recipe,
 	'/': Favorites,
-	'/about': About
+	'/about': About,
+	'/new': {
+		$$redirect: '/r/'
+	}
 })
 
 const app = new App({

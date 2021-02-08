@@ -25,7 +25,7 @@
 		<Burger />
 	</span>
 	<a style="flex: 1" href={$routes["/"].$$stringify()}>Cukb.uk</a>
-	<a href={$routes["/r/*"].$$stringify({ _: "" })}>➕</a>
+	<a href={$routes["/new"].$$stringify()}>➕</a>
 </nav>
 
 <main on:click={() => (opened = false)}>
