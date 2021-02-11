@@ -21,5 +21,6 @@
     svg {
         width: 1em;
         height: 1em;
+        padding: 0 0.5em;
     }
 </style>

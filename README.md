@@ -14,5 +14,4 @@ npm run dev
 - label checkbox over step clicky bug
 - add same ingredients in ingredient list (1 egg + 2 egg = 3 egg)
 - Split ingredients by heading
-- [BUG] Bigger burger target
 - [BUG] scrolY=0 -> Header disapears
