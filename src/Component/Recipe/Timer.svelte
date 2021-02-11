@@ -1,8 +1,9 @@
 <script lang="ts">
     import { _ } from "svelte-i18n";
-    import { notify, request } from "./lib/notifications";
-    import { end } from "./lib/time";
-    import type { Duration } from "./lib/time";
+    
+    import { notify, request } from "../../lib/notifications";
+    import { end } from "../../lib/time";
+    import type { Duration } from "../../lib/time";
 
     export let value: Duration;
 

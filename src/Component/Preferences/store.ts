@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { units } from './lib/units';
+import { units } from '../../lib/units';
 
 export const scale = writable(1);
 

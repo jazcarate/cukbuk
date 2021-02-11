@@ -6,11 +6,12 @@
         volumeFamily,
         weightFamily,
         temperatureFamily,
-    } from "./myRecipeStore";
-    import { find, transform, units } from "./lib/units";
-    import type { UnitDefinition } from "./lib/units";
+    } from "./Preferences/store";
     import NumberInput from "./NumberInput.svelte";
-    import type { Vector } from "./lib/parser";
+
+    import { find, transform, units } from "../lib/units";
+    import type { UnitDefinition } from "../lib/units";
+    import type { Vector } from "../lib/parser";
 
     export let vector: Vector;
     const { unit, value } = vector;

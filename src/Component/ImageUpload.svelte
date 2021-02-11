@@ -2,7 +2,7 @@
     import { createEventDispatcher } from "svelte";
     import { _ } from "svelte-i18n";
 
-    import { upload } from "./lib/imgur";
+    import { upload } from "../lib/imgur";
 
     const dispatch = createEventDispatcher();
 

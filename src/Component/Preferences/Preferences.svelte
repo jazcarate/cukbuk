@@ -1,13 +1,13 @@
 <script lang="ts">
     import { _ } from "svelte-i18n";
 
-    import { units } from "./lib/units";
+    import { units } from "../../lib/units";
     import {
         volumeFamily,
         weightFamily,
         temperatureFamily,
         lengthFamily,
-    } from "./myRecipeStore";
+    } from "./store";
 
     function changeWeight(ev: any) {
         weightFamily.set(ev.currentTarget.value);

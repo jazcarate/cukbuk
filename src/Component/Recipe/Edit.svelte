@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
-
     import { _ } from "svelte-i18n";
-    import { setTitle } from "../lib/title";
+    
+    import { setTitle } from "../../lib/title";
     import ImageUpload from "../ImageUpload.svelte";
 
     export let text: string;

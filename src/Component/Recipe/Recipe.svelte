@@ -1,11 +1,11 @@
 <script lang="ts">
     import { routes } from "svelte-hash-router";
     import { _ } from "svelte-i18n";
+
+    import { encode } from "../../lib/lzma";
+    
+    import { pushToast } from "../Toast/store";
     import HelpModal from "../HelpModal.svelte";
-
-    import { encode } from "../lib/lzma";
-    import { pushToast } from "../toastStore";
-
     import Doable from "./Doable.svelte";
     import Edit from "./Edit.svelte";
 

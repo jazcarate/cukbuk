@@ -2,10 +2,10 @@
 	import Router, { routes } from "svelte-hash-router";
 	import { _ } from "svelte-i18n";
 
-	import Toast from "./Toast.svelte";
-	import Drawer from "./Drawer.svelte";
-	import Burger from "./Burger.svelte";
-	import Footer from "./Footer.svelte";
+	import Toast from "./Component/Toast/Toast.svelte";
+	import Drawer from "./Component/Drawer.svelte";
+	import Burger from "./Component/Burger.svelte";
+	import Footer from "./Component/Footer.svelte";
 
 	let opened: boolean = false;
 	let pinned: boolean = false;

@@ -3,7 +3,7 @@
     import { _ } from "svelte-i18n";
     export let opened: boolean;
 
-    import Preferences from "./Preferences.svelte";
+    import Preferences from "./Preferences/Preferences.svelte";
 </script>
 
 <main style={`width: ${opened ? 250 : 0}px`}>

@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Step from "./Step.svelte";
     import type { Line } from "./lib/parser";
+    
+    import Step from "./Step.svelte";
     import LineContent from "./LineContent.svelte";
 
     export let line: Line;

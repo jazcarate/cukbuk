@@ -1,7 +1,7 @@
 <script>
     import { fade, fly } from "svelte/transition";
     import { backOut } from "svelte/easing";
-    import { toasts } from "./toastStore";
+    import { toasts } from "./store";
 </script>
 
 <div class="toast-wrapper">

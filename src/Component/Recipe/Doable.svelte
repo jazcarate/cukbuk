@@ -1,7 +1,7 @@
 <script lang="ts">
     import { _ } from "svelte-i18n";
 
-    import { parse } from "../lib/parser";
+    import { parse } from "../../lib/parser";
     import Parsed from "./Parsed.svelte";
 
     export let text: string;

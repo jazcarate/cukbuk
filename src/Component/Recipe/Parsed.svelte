@@ -2,15 +2,16 @@
     import { _ } from "svelte-i18n";
     import { onMount } from "svelte";
 
-    import { isIngredient } from "../lib/parser";
-    import type { Recipe } from "../lib/parser";
-    import { checkFav, toggleFav } from "../lib/fav";
-    import { setTitle } from "../lib/title";
+    import { isIngredient } from "../../lib/parser";
+    import type { Recipe } from "../../lib/parser";
+    import { checkFav, toggleFav } from "../../lib/fav";
+    import { setTitle } from "../../lib/title";
 
-    import Line from "../Line.svelte";
+    import Line from "./Line.svelte";
     import ScalableVector from "../ScalableVector.svelte";
-    import { scale } from "../myRecipeStore";
-    import Step from "../Step.svelte";
+    import Step from "./Step.svelte";
+
+    import { scale } from "../Preferences/store";
 
     export let recipe: Recipe;
     const ingredients = recipe.lines

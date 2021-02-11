@@ -1,8 +1,8 @@
 <script lang="ts">
-    import ScalableVector from "./ScalableVector.svelte";
+    import ScalableVector from "../ScalableVector.svelte";
     import Timer from "./Timer.svelte";
     import Image from "./Image.svelte";
-    import type { Item } from "./lib/parser";
+    import type { Item } from "../../lib/parser";
 
     export let items: Item[];
 </script>
