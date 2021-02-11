@@ -24,7 +24,7 @@ function linear(k: number): Pivotable {
 }
 
 export interface UnitType<T> {
-    weight: T, volume: T, temperature: T, amount: T
+    weight: T, volume: T, temperature: T, amount: T, length: T
 }
 
 function entries<T>(k: UnitType<T>): [keyof UnitType<T>, T][] {
@@ -127,6 +127,19 @@ export const units: UnitType<Usage> = {
                     fromPivot: (c: number) => (c * 9 / 5) + 32,
                 }
             }]
+        }
+    },
+    length: {
+        scalable: false,
+        families: {
+            metric: [
+                { name: 'm', pivotable: pivot() },
+                { name: 'cm', pivotable: linear(1 / 1000) }
+            ],
+            imperial: [
+                { name: 'in', pivotable: linear(0.0254) },
+                { name: 'ft', pivotable: linear(0.3048) }
+            ]
         }
     },
     amount: {

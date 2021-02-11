@@ -8,6 +8,7 @@
         volumeFamily,
         weightFamily,
         temperatureFamily,
+        lengthFamily,
     } from "./myRecipeStore";
 
     function changeWeight(ev: any) {
@@ -20,6 +21,10 @@
 
     function changeTemperature(ev: any) {
         temperatureFamily.set(ev.currentTarget.value);
+    }
+
+    function changeLength(ev: any) {
+        lengthFamily.set(ev.currentTarget.value);
     }
 </script>
 
@@ -86,6 +91,22 @@
                         value={family}
                         selected={$temperatureFamily == family}
                         >{units.temperature.families[family]
+                            .map(({ name }) =>
+                                $_("units." + name, { default: name })
+                            )
+                            .join(", ")}</option
+                    >
+                {/each}
+            </select>
+        </div>
+        <div class="option">
+            {$_("recipe.length")}<br />
+            <select on:change={changeLength}>
+                {#each Object.keys(units.length.families) as family}
+                    <option
+                        value={family}
+                        selected={$lengthFamily == family}
+                        >{units.length.families[family]
                             .map(({ name }) =>
                                 $_("units." + name, { default: name })
                             )
