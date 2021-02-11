@@ -14,10 +14,19 @@
     import { scale } from "../Preferences/store";
 
     export let recipe: Recipe;
-    const ingredients = recipe.lines
+    const allIngredients = recipe.lines
         .map(({ value }) => (Array.isArray(value) ? value : []))
         .reduce((acc, val) => acc.concat(val), [])
         .filter(isIngredient);
+    
+    const ingredients = Object.values(groupBy(allIngredients, 'name'));
+
+    function groupBy(xs, key) {
+        return xs.reduce(function(rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
 
     let isFav = checkFav(recipe.title);
 
@@ -42,10 +51,13 @@
         <h2>{$_("recipe.ingredients")}</h2>
         {#each ingredients as ingredient}
             <Step>
-                {#if ingredient.value}
-                    <ScalableVector vector={ingredient.value} />
-                {/if}
-                {ingredient.name}
+                {#each ingredient as individual, i}
+                    {#if i > 0} + {/if}
+                    {#if individual.value}
+                        <ScalableVector vector={individual.value} />
+                    {/if}
+                    {individual.name}
+                {/each}
             </Step>
         {/each}
     </section>
