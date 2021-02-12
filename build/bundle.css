@@ -1,16 +1,17 @@
 .fill-height.svelte-wkppd3.svelte-wkppd3{min-height:calc(100vh - var(--footer-height))}.clickable.svelte-wkppd3.svelte-wkppd3{cursor:pointer}nav.svelte-wkppd3.svelte-wkppd3{height:var(--header-height);position:fixed;width:100%;background-color:var(--color-background-input);transition:all 0.3s linear;z-index:2;display:flex;align-items:center;color:var(--color-secondary)}nav.svelte-wkppd3 a.svelte-wkppd3{text-decoration:none}.shadow.svelte-wkppd3.svelte-wkppd3{box-shadow:0 2px 4px -1px rgba(0, 0, 0, 0.25)}main.svelte-wkppd3.svelte-wkppd3{padding-top:var(--header-height);transition:left 0.5s;position:relative;overflow-y:hidden}
-svg.svelte-1xa1bn8{width:1em;height:1em}
-.wrap.svelte-1bkb5ml{margin:0 1em}select.svelte-1bkb5ml{cursor:pointer;border-radius:0;appearance:none;border:none;padding:0 1em 0 0;margin:0;border-radius:5px;font-family:inherit;font-size:inherit;cursor:inherit;line-height:inherit;background-color:var(--color-background-input-sidebar);border-bottom:2px solid var(--color-primary);color:var(--color-primary)}main.svelte-1bkb5ml{height:100%;width:0;position:fixed;z-index:1;top:0;left:0;background-color:var(--color-background-sidebar);color:var(--color-sidebar);overflow-x:hidden;transition:width 0.5s;box-shadow:4px 0 4px rgba(0, 0, 0, 0.25)}.option.svelte-1bkb5ml{white-space:pre;padding:8px}
+svg.svelte-1nrvfav{width:1em;height:1em;padding:0 0.5em}
+.wrap.svelte-iblor9{margin:0 1em}main.svelte-iblor9{height:100%;width:0;position:fixed;z-index:1;top:0;left:0;background-color:var(--color-background-sidebar);color:var(--color-sidebar);overflow-x:hidden;transition:width 0.5s;box-shadow:4px 0 4px rgba(0, 0, 0, 0.25)}
 footer.svelte-1qqbx5l{width:100%;height:var(--footer-height);font-size:0.75rem;background:black;color:var(--color-secondary);display:flex;justify-content:center;align-items:center}ul.svelte-1qqbx5l{flex:1;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-evenly;margin:0;padding:0}li.svelte-1qqbx5l{list-style:none}
-img.svelte-1h37kzb{height:auto;max-width:100%}
 div.modal.svelte-1r5vffk{position:fixed;top:0;left:0;width:100%;height:100vh;display:flex;justify-content:center;align-items:center;opacity:1}div.modal.svelte-1r5vffk:not(:focus-within){transition:opacity 0.1ms;opacity:0.99}.clickable.svelte-1r5vffk{cursor:pointer}div.backdrop.svelte-1r5vffk{background-color:rgba(0, 0, 0, 0.4);position:absolute;width:100%;height:100%}div.content-wrapper.svelte-1r5vffk{z-index:10;max-width:70vw;border-radius:0.3rem;background-color:white;overflow:hidden;padding:1em}div.content.svelte-1r5vffk{max-height:50vh;overflow:auto;white-space:pre-wrap}h1.svelte-1r5vffk{opacity:0.5}
 input.svelte-n59pus{-moz-appearance:textfield;border-radius:5px;background-color:var(--color-background-input);border:none;border-bottom:2px solid var(--color-primary);text-align:center;transition:width 0.4s ease-out;color:var(--color-primary)}
-main.svelte-1y75rrw{margin:0 auto;padding:1em;position:relative}@media(min-width: 640px){main.svelte-1y75rrw{max-width:640px}}
+select.svelte-xov7zr{cursor:pointer;border-radius:0;appearance:none;border:none;padding:0 1em 0 0;margin:0;border-radius:5px;font-family:inherit;font-size:inherit;cursor:inherit;line-height:inherit;background-color:var(--color-background-input-sidebar);border-bottom:2px solid var(--color-primary);color:var(--color-primary)}.option.svelte-xov7zr{white-space:pre;padding:8px}
 textarea.svelte-mbakf7{width:calc(100% - 3em);height:calc(80vh - 3em);border:1px solid var(--color-background-input);background:none;color:inherit;font-family:inherit;padding:1em}
+img.svelte-1h37kzb{height:auto;max-width:100%}
 h1.svelte-ya951h{line-height:1.14em;font-size:2.63rem;font-weight:600}.clickable.svelte-ya951h{cursor:pointer}
 span.svelte-1ow4dq9{cursor:pointer}
 .checked.svelte-dnloq2{text-decoration:line-through}ol.svelte-dnloq2{list-style-type:none;padding:0}
 span.svelte-1ow4dq9{cursor:pointer}
 .toast-wrapper.svelte-a08gn0{position:fixed;left:0;right:0;bottom:0;text-align:center;z-index:9999}.toast-item.svelte-a08gn0{border-radius:4px;padding:12px 10px;margin:10px auto;max-width:400px;background:rgba(0, 0, 0, 0.7);color:#fff}
+main.svelte-1y75rrw{margin:0 auto;padding:1em;position:relative}@media(min-width: 640px){main.svelte-1y75rrw{max-width:640px}}
 
 /*# sourceMappingURL=bundle.css.map */
