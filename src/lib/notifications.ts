@@ -2,7 +2,7 @@ let permission = typeof Notification !== "undefined" ? Notification.permission :
 
 export function notify(title: string, body: string) {
     const icon =
-        "https://homepages.cae.wisc.edu/~ece533/images/airplane.png";
+        "/images/icons/favicon-32x32.png";
     new Notification(title, {
         body,
         icon,
