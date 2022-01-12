@@ -2,6 +2,7 @@ import P from "parsimmon";
 import type { Duration } from "./time";
 import { allUnits } from "./units";
 
+export type Tranformation = { value: number, mass: string, volume: string };
 export type Vector = { value: number, unit?: string };
 
 export function isIngredient(x: Item): x is Ingredient {
@@ -12,7 +13,7 @@ export type Item = Text | Ingredient | Scalable | Time | Image;
 type Text = { _type: 'text', value: string }
 type Ingredient = { _type: 'ingredient', name: string, value?: Vector }
 type Image = { _type: 'image', value: string, name?: string }
-type Scalable = { _type: 'scalable', value: Vector }
+type Scalable = { _type: 'scalable', value: Vector, dentisy?: Tranformation }
 type Time = { _type: 'time', value: Duration };
 
 export type Line = Header | Paragraph | Step;
@@ -50,9 +51,10 @@ const parser = P.createLanguage({
     EnclosedString: () => P.takeWhile(c => c !== CLOSE_RECIPE_DSL && c !== "|").assert(t => !!t, "it needs to parse something").desc("string"),
 
     Unit: () => P.alt(...(allUnits.map(P.string))).skip(P.string("s").or(P.succeed(1))),
-    NumberUnit: r => P.seq(r.Number, r.Unit.fallback(null)),
+    NumberUnit: r => P.seq<number, string>(r.Number, r.Unit.fallback(null)),
+    Tranformation: r => P.seqMap(r.Number.skip(P.optWhitespace), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).wrap(P.string("("), P.string(")")).or(P.succeed(null)),
     SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name })),
-    NumberIngredient: r => P.seqMap(r.NumberUnit.skip(P.whitespace), r.EnclosedString, ([value, unit], name) => ({ _type: 'ingredient', name, value: { value, unit } } as Ingredient)),
+    NumberIngredient: r => P.seqMap(r.NumberUnit, r.Tranformation.trim(P.optWhitespace), r.EnclosedString, ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),
     Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value: { value, unit } })),
     Time: r => P.seq(r.Number.skip(P.string(":")), r.Number, P.string(":").then(r.Number).fallback(null)).map(time),

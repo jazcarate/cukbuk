@@ -59,6 +59,16 @@ describe('line', () => {
             });
         });
 
+        test('with density', () => {
+            return expect(testing.line("[5g (0.762g/l) of milk]")).resolves.toMatchObject({
+                value: [{
+                    _type: 'ingredient', name: 'of milk',
+                    value: { value: 5, unit: 'g' },
+                    density: { value: 0.762, mass: "g", volume: "l" },
+                }]
+            });
+        });
+
         test('a temperature', () => {
             return expect(testing.line("[5f]")).resolves.toMatchObject({
                 value: [{ _type: 'scalable', value: { value: 5, unit: 'f' } }]

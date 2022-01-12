@@ -14,3 +14,4 @@ npm run dev
 - label checkbox over step clicky bug
 - Split ingredients by heading
 - [BUG] scrolY=0 -> Header disapears
+- Desity
