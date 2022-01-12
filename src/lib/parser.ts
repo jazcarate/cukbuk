@@ -52,9 +52,9 @@ const parser = P.createLanguage({
 
     Unit: () => P.alt(...(allUnits.map(P.string))).skip(P.string("s").or(P.succeed(1))),
     NumberUnit: r => P.seq<number, string>(r.Number, r.Unit.fallback(null)),
-    Tranformation: r => P.seqMap(r.Number.skip(P.optWhitespace), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).wrap(P.string("("), P.string(")")).or(P.succeed(null)),
+    Tranformation: r => P.seqMap(r.Number.skip(r._), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).wrap(P.string("("), P.string(")")).or(P.succeed(null)),
     SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name })),
-    NumberIngredient: r => P.seqMap(r.NumberUnit, r.Tranformation.trim(P.optWhitespace), r.EnclosedString, ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
+    NumberIngredient: r => P.seqMap(r.NumberUnit, r.Tranformation.trim(r._), r.EnclosedString, ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),
     Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value: { value, unit } })),
     Time: r => P.seq(r.Number.skip(P.string(":")), r.Number, P.string(":").then(r.Number).fallback(null)).map(time),
