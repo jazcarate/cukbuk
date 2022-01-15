@@ -52,7 +52,7 @@ const parser = P.createLanguage({
 
     Unit: () => P.alt(...(allUnits.map(P.string))).skip(P.string("s").or(P.succeed(1))),
     NumberUnit: r => P.seq<number, string>(r.Number, r.Unit.fallback(null)),
-    Tranformation: r => P.seqMap(r.Number.skip(r._), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).wrap(P.string("("), P.string(")")).desc("density"),
+    Tranformation: r => P.seqMap(r.Number.skip(r._), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).trim(r._).wrap(P.string("("), P.string(")")).desc("density"),
     SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name })),
     NumberIngredient: r => P.seqMap(r.NumberUnit.skip(P.whitespace), r.Tranformation.skip(r._).or(P.succeed(null)), r.EnclosedString, ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),

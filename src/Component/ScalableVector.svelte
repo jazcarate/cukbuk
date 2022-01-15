@@ -55,7 +55,7 @@
 <NumberInput
     on:input={rescale}
     value={currentValue}
-    edit={familyDef.scalable}
+    edit={familyDef.scalable == 1}
 />{#if currentUnit}
     <span>{$_("units." + currentUnit, { default: currentUnit })}</span>
 {/if}

@@ -11,7 +11,7 @@ interface Unit {
 type Family = Unit[];
 
 interface Usage {
-    scalable: boolean,
+    scalable: number, // 0: Not scalable. 1: Linear. 2: Squared. etc.
     families: { [key: string]: Family }
 }
 
@@ -24,14 +24,18 @@ function linear(k: number): Pivotable {
 }
 
 export interface UnitType<T> {
-    weight: T, volume: T, temperature: T, amount: T, length: T
+    weight: T, volume: T, temperature: T, amount: T, area: T, length: T
 }
 
 function entries<T>(k: UnitType<T>): [keyof UnitType<T>, T][] {
     return Object.entries(k) as [keyof UnitType<T>, T][];
 }
 
-export type UnitDefinition = [keyof UnitType<any>, string, Unit];
+export type UnitDefinition = {
+    type: keyof UnitType<any>,
+    pivotable: Pivotable,
+    power: number
+};
 
 export function find(x: string): UnitDefinition | undefined {
     const found = entries(units)
@@ -49,7 +53,7 @@ export function find(x: string): UnitDefinition | undefined {
     const [familyName, familyUnits] = foundFamilies;
 
     const unit = familyUnits.find(({ name }) => name == x);
-    return [type, familyName, unit];
+    return { type, pivotable: unit.pivotable, power: usage.scalable };
 }
 
 // the value is in the pivot of the family
@@ -71,12 +75,13 @@ interface UnitValue {
 export function transform(x: number, from: string, to: string): UnitValue | undefined {
     const fromUnit = find(from);
     if (fromUnit == undefined) return undefined;
+    const { type, pivotable, power } = fromUnit;
 
-    const toFamily = units[fromUnit[0]].families[to];
+    const toFamily = units[type].families[to];
 
     if (toFamily == undefined) return undefined;
 
-    const pivotValue = fromUnit[2].pivotable.toPivot(x);
+    const pivotValue = pivotable.toPivot(x ** power);
     const [value, unit] = fit(pivotValue, toFamily);
     return { pivotValue, value, unit };
 }
@@ -84,7 +89,7 @@ export function transform(x: number, from: string, to: string): UnitValue | unde
 // All units should be lowercase to match the parser; but can have additional rendering thingamabobs
 export const units: UnitType<Usage> = {
     weight: {
-        scalable: true,
+        scalable: 1,
         families: {
             metric: [
                 { name: 'g', pivotable: pivot() },
@@ -97,7 +102,7 @@ export const units: UnitType<Usage> = {
         }
     },
     volume: {
-        scalable: true,
+        scalable: 1,
         families: {
             metric: [
                 { name: 'ml', pivotable: pivot() },
@@ -118,7 +123,7 @@ export const units: UnitType<Usage> = {
         }
     },
     temperature: {
-        scalable: false,
+        scalable: 0,
         families: {
             metric: [{ name: 'c', pivotable: pivot() }],
             imperial: [{
@@ -130,7 +135,7 @@ export const units: UnitType<Usage> = {
         }
     },
     length: {
-        scalable: false,
+        scalable: 1,
         families: {
             metric: [
                 { name: 'm', pivotable: pivot() },
@@ -142,8 +147,21 @@ export const units: UnitType<Usage> = {
             ]
         }
     },
+    area: {
+        scalable: 2,
+        families: {
+            metric: [
+                { name: 'm2', pivotable: pivot() },
+                { name: 'cm2', pivotable: linear(1 / 10000) }
+            ],
+            imperial: [
+                { name: 'sq in', pivotable: linear(0.00064516) },
+                { name: 'sq ft', pivotable: linear(0.0929) }
+            ]
+        }
+    },
     amount: {
-        scalable: true,
+        scalable: 1,
         families: {
             _: [{ name: '', pivotable: pivot() }],
         }

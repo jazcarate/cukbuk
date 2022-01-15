@@ -15,3 +15,4 @@ npm run dev
 - Split ingredients by heading
 - [BUG] scrolY=0 -> Header disapears
 - Desity
+- Scalar dimension (Bug on scaling temperatures)

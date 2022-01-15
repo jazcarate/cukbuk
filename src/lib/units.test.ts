@@ -109,6 +109,56 @@ describe('units', () => {
 
                 expect(transform(100, 'f', 'metric')).toBeU(37.78, 'c');
             });
+
+
+            test("area", () => {
+                expect(transform(100, 'm2', 'metric')).toBeU(100, 'm2');
+
+                expect(transform(100, 'm2', 'imperial')).toBeU(1076.39, 'sq ft');
+
+
+                expect(transform(100, 'sq in', 'metric')).toBeU(0.064516, 'm2');
+            });
+        });
+
+
+        describe("scala", () => {
+            test("weight", () => {
+                expect(transform(300, 'g', 'metric')).toBeU(300, 'g');
+                expect(transform(3000, 'g', 'metric')).toBeU(3, 'kg');
+
+                expect(transform(300, 'g', 'imperial')).toBeU(10.58, 'once');
+                expect(transform(500, 'g', 'imperial')).toBeU(1.1, 'lb');
+
+
+                expect(transform(300, 'once', 'metric')).toBeU(8.51, 'kg');
+                expect(transform(2, 'lb', 'metric')).toBeU(907.18, 'g');
+            });
+
+            test("volume", () => {
+                expect(transform(300, 'ml', 'metric')).toBeU(300, 'ml');
+                expect(transform(3000, 'ml', 'metric')).toBeU(3, 'l');
+
+                expect(transform(1, 'ml', 'imperial')).toBeU(0.034, 'fluid ounce');
+
+                expect(transform(1, 'ml', 'us imperial')).toBeU(0.035, 'us fluid ounce');
+
+                expect(transform(5, 'ml', 'customary')).toBeU(1.01, 'teaspoon');
+                expect(transform(15, 'ml', 'customary')).toBeU(1.01, 'tablespoon');
+                expect(transform(240, 'ml', 'customary')).toBeU(1.01, 'cup');
+                expect(transform(500, 'ml', 'customary')).toBeU(1.06, 'pint');
+
+                expect(transform(2, 'tablespoon', 'metric')).toBeU(29.57, 'ml');
+            });
+
+            test("temperature", () => {
+                expect(transform(100, 'c', 'metric')).toBeU(100, 'c');
+
+                expect(transform(100, 'c', 'imperial')).toBeU(212, 'f');
+
+
+                expect(transform(100, 'f', 'metric')).toBeU(37.78, 'c');
+            });
         });
 
         describe("errors", () => {
