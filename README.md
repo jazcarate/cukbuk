@@ -16,3 +16,4 @@ npm run dev
 - [BUG] scrolY=0 -> Header disapears
 - Desity
 - Scalar dimension (Bug on scaling temperatures)
+- LZMA bench? Propery round-trip? (will need a browser. Can't do it in `jest`)

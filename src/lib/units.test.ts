@@ -20,25 +20,34 @@ declare global {
 }
 
 describe('units', () => {
-
     describe("types", () => {
         test('weight', () => {
-            expect(find('g')[0]).toBe('weight');
-            expect(find('kg')[0]).toBe('weight');
-            expect(find('once')[0]).toBe('weight');
-            expect(find('lb')[0]).toBe('weight');
+            expect(find('g').type).toBe('weight');
+            expect(find('kg').type).toBe('weight');
+            expect(find('once').type).toBe('weight');
+            expect(find('lb').type).toBe('weight');
         });
 
         test('volume', () => {
-            expect(find('ml')[0]).toBe('volume');
-            expect(find('us fluid ounce')[0]).toBe('volume');
-            expect(find('pint')[0]).toBe('volume');
-            expect(find('cup')[0]).toBe('volume');
+            expect(find('ml').type).toBe('volume');
+            expect(find('us fluid ounce').type).toBe('volume');
+            expect(find('pint').type).toBe('volume');
+            expect(find('cup').type).toBe('volume');
         });
 
         test('temperature', () => {
-            expect(find('c')[0]).toBe('temperature');
-            expect(find('f')[0]).toBe('temperature');
+            expect(find('c').type).toBe('temperature');
+            expect(find('f').type).toBe('temperature');
+        });
+
+        test('length', () => {
+            expect(find('m').type).toBe('length');
+            expect(find('in').type).toBe('length');
+        });
+
+        test('area', () => {
+            expect(find('sq in').type).toBe('area');
+            expect(find('m2').type).toBe('area');
         });
 
         test('none', () => {
@@ -116,13 +125,12 @@ describe('units', () => {
 
                 expect(transform(100, 'm2', 'imperial')).toBeU(1076.39, 'sq ft');
 
-
-                expect(transform(100, 'sq in', 'metric')).toBeU(0.064516, 'm2');
+                expect(transform(100, 'sq in', 'metric')).toBeU(645.16, 'cm2');
             });
         });
 
 
-        describe("scala", () => {
+        describe("scale to best fit", () => {
             test("weight", () => {
                 expect(transform(300, 'g', 'metric')).toBeU(300, 'g');
                 expect(transform(3000, 'g', 'metric')).toBeU(3, 'kg');

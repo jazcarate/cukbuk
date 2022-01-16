@@ -81,7 +81,7 @@ export function transform(x: number, from: string, to: string): UnitValue | unde
 
     if (toFamily == undefined) return undefined;
 
-    const pivotValue = pivotable.toPivot(x ** power);
+    const pivotValue = pivotable.toPivot(x);
     const [value, unit] = fit(pivotValue, toFamily);
     return { pivotValue, value, unit };
 }
@@ -155,8 +155,8 @@ export const units: UnitType<Usage> = {
                 { name: 'cm2', pivotable: linear(1 / 10000) }
             ],
             imperial: [
-                { name: 'sq in', pivotable: linear(0.00064516) },
-                { name: 'sq ft', pivotable: linear(0.0929) }
+                { name: 'sq in', pivotable: linear(1550) },
+                { name: 'sq ft', pivotable: linear(10.7639) }
             ]
         }
     },
