@@ -120,7 +120,7 @@ describe('units', () => {
             });
 
 
-            test("area", () => {
+            test.skip("area", () => {
                 expect(transform(100, 'm2', 'metric')).toBeU(100, 'm2');
 
                 expect(transform(100, 'm2', 'imperial')).toBeU(1076.39, 'sq ft');
