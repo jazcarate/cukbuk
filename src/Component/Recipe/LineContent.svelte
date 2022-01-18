@@ -1,6 +1,7 @@
 <script lang="ts">
     import ScalableVector from "../ScalableVector.svelte";
-    import Timer from "./Timer.svelte";
+    import Timer from "./Timer.svelte"
+    import Text from "./Text.svelte";
     import Image from "./Image.svelte";
     import type { Item } from "../../lib/parser";
 
@@ -11,7 +12,7 @@
     &ZeroWidthSpace;
     {#each items as component}
         {#if component._type == "text"}
-            <span>{component.value}</span>
+            <Text text={component.value} />
         {:else if component._type == "ingredient"}
             <strong>
                 {#if component.value}
