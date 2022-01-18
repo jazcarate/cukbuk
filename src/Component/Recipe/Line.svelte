@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Line } from "./lib/parser";
+    import type { Line } from "../../lib/parser";
     
     import Step from "./Step.svelte";
     import LineContent from "./LineContent.svelte";
@@ -18,12 +18,3 @@
         <LineContent items={line.value} />
     </p>
 {/if}
-
-<style>
-    h2 {
-        margin-top: 1rem;
-        line-height: 1.17em;
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-</style>

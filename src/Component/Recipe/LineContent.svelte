@@ -1,6 +1,6 @@
 <script lang="ts">
     import ScalableVector from "../ScalableVector.svelte";
-    import Timer from "./Timer.svelte"
+    import Timer from "./Timer.svelte";
     import Text from "./Text.svelte";
     import Image from "./Image.svelte";
     import type { Item } from "../../lib/parser";
@@ -22,6 +22,9 @@
             </strong>
         {:else if component._type == "scalable"}
             <ScalableVector vector={component.value} />
+            {#if component.density}
+                <span>{component.density.value}</span>
+            {/if}
         {:else if component._type == "time"}
             <Timer value={component.value} />
         {:else if component._type == "image"}

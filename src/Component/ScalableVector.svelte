@@ -22,7 +22,12 @@
 
     const unitDefinition: UnitDefinition = unit
         ? find(unit)
-        : ["amount", "_", units.amount.families._[0]];
+        : {
+              type: "amount",
+              pivotable: units.amount.families._[0].pivotable,
+              power: 1,
+          };
+
     const familyDef = units[unitDefinition[0]];
 
     $: {
