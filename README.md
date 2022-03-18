@@ -12,6 +12,7 @@ npm run dev
 # TODO
 - About
 - label checkbox over step clicky bug
+- Enter to edit types an additional, unwanted enter
 - Split ingredients by heading
 - [BUG] scrolY=0 -> Header disapears
 - Desity
