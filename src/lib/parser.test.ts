@@ -37,8 +37,8 @@ describe('line', () => {
             });
         });
         test('mantissa bug', () => {
-            return expect(testing.line("[60.333]")).resolves.toMatchObject({
-                value: [{ _type: 'scalable', value: { value: 60.333, unit: '' } }]
+            return expect(testing.line("[60.333 eggs]")).resolves.toMatchObject({
+                value: [{ _type: 'ingredient', name:"eggs", value: { value: 60.333, unit: '' } }]
             });
         });
         test('a fractional number', () => {
@@ -71,13 +71,13 @@ describe('line', () => {
 
         test('a temperature', () => {
             return expect(testing.line("[5f]")).resolves.toMatchObject({
-                value: [{ _type: 'scalable', value: { value: 5, unit: 'f' } }]
+                value: [{ _type: 'ingredient', name: "", value: { value: 5, unit: 'f' } }]
             });
         });
 
         test('only a number', () => {
             return expect(testing.line("[5]")).resolves.toMatchObject({
-                value: [{ _type: 'scalable', value: { value: 5, unit: '' } }]
+                value: [{ _type: 'ingredient', name: "", value: { value: 5 } }]
             });
         });
 
@@ -90,19 +90,19 @@ describe('line', () => {
 
 
     test('number and text', () => {
-        return expect(testing.line("[5] foo")).resolves.toMatchObject({
+        return expect(testing.line("[5 foo] bar")).resolves.toMatchObject({
             value: [
-                { _type: 'scalable', value: { value: 5, unit: '' } },
-                { _type: 'text', value: ' foo' }
+                { _type: 'ingredient', name: "foo", value: { value: 5 } },
+                { _type: 'text', value: ' bar' }
             ]
         });
     });
 
     test('text and number', () => {
-        return expect(testing.line("foo [5]")).resolves.toMatchObject({
+        return expect(testing.line("foo [5 biz]")).resolves.toMatchObject({
             value: [
                 { _type: 'text', value: 'foo ' },
-                { _type: 'scalable', value: { value: 5, unit: '' } },
+                { _type: 'ingredient', name: "biz", value: { value: 5, unit: '' } },
             ]
         });
     });
@@ -155,10 +155,6 @@ describe('line', () => {
 
         test("heading", () => {
             return expect(testing.line("# foo")).resolves.toMatchObject({ _type: 'header' });
-        });
-
-        test("p", () => {
-            return expect(testing.line("foo")).resolves.toMatchObject({ _type: 'paragraph' });
         });
     });
 })

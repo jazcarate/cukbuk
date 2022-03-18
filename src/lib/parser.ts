@@ -5,21 +5,23 @@ import { allUnits } from "./units";
 export type Tranformation = { value: number, mass: string, volume: string };
 export type Vector = { value: number, unit?: string };
 
-export function isIngredient(x: Item): x is Ingredient {
-    return x._type == 'ingredient';
+export function isIngredient(item: Item): item is Ingredient {
+    return item._type == 'ingredient';
 }
 
-export type Item = Text | Ingredient | Scalable | Time | Image;
+export type Item = Text | Ingredient | Time | Image;
 type Text = { _type: 'text', value: string }
-type Ingredient = { _type: 'ingredient', name: string, value?: Vector }
 type Image = { _type: 'image', value: string, name?: string }
-type Scalable = { _type: 'scalable', value: Vector, dentisy?: Tranformation }
+type Ingredient = { _type: 'ingredient', name: string, value: Vector, dentisy?: Tranformation }
 type Time = { _type: 'time', value: Duration };
 
-export type Line = Header | Paragraph | Step;
+export type Line = Header | Step;
 type Header = { _type: 'header', value: string };
-type Paragraph = { _type: 'paragraph', value: Item[] };
 type Step = { _type: 'step', value: Item[] };
+
+export function isStep(line: Line): line is Step {
+    return line._type === "step";
+}
 
 export type Recipe = {
     title: string,
@@ -53,10 +55,9 @@ const parser = P.createLanguage({
     Unit: () => P.alt(...(allUnits.map(P.string))).skip(P.string("s").or(P.succeed(1))),
     NumberUnit: r => P.seq<number, string>(r.Number, r.Unit.fallback(null)),
     Tranformation: r => P.seqMap(r.Number.skip(r._), r.Unit.skip(P.string("/")), r.Unit, (value, mass, volume) => ({ value, mass, volume })).trim(r._).wrap(P.string("("), P.string(")")).desc("density"),
-    SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name })),
-    NumberIngredient: r => P.seqMap(r.NumberUnit.skip(P.whitespace), r.Tranformation.skip(r._).or(P.succeed(null)), r.EnclosedString, ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
+    SimpleIngredient: r => r.EnclosedString.map<Ingredient>(name => ({ _type: 'ingredient', name, value: { value: 1 } })),
+    NumberIngredient: r => P.seqMap(r.NumberUnit.skip(r._), r.Tranformation.fallback(null).skip(r._), r.EnclosedString.fallback(""), ([value, unit], density, name) => ({ _type: 'ingredient', name, value: { value, unit }, density } as Ingredient)),
     Ingredient: r => P.alt(r.NumberIngredient, r.SimpleIngredient),
-    Scalable: r => r.NumberUnit.map<Scalable>(([value, unit]) => ({ _type: 'scalable', value: { value, unit } })),
     Time: r => P.seq(r.Number.skip(P.string(":")), r.Number, P.string(":").then(r.Number).fallback(null)).map(time),
 
     ImageURL: () => P.takeWhile(c => c !== CLOSE_RECIPE_DSL).assert(url => url.startsWith("http"), "a url"),
@@ -65,14 +66,13 @@ const parser = P.createLanguage({
         P.takeWhile(c => c !== '|').skip(P.string('|')), r.ImageURL).map<Image>(([name, value]) => ({ _type: 'image', value, name })),
     Image: r => P.string("!").then(r.NamedImage.or(r.UnnamedImage)),
 
-    WrappedItem: r => P.alt(...wrap(r.Image, r.Time, r.Scalable, r.Ingredient)),
+    WrappedItem: r => P.alt(...wrap(r.Image, r.Time, r.Ingredient)),
     Item: r => P.alt<Item>(r.WrappedItem, r.Text),
     Items: r => r.Item.atLeast(1),
 
     Header: r => P.string("#").then(r._).then(P.all).map<Header>(value => ({ _type: 'header', value })),
-    Step: r => P.string("-").then(r._).then(r.Items).map<Step>(value => ({ _type: 'step', value })),
-    Paragraph: r => r.Items.map<Paragraph>(value => ({ _type: 'paragraph', value })),
-    Line: r => P.alt(r.Header, r.Step, r.Paragraph)
+    Step: r => r.Items.map<Step>(value => ({ _type: 'step', value })),
+    Line: r => P.alt(r.Header, r.Step)
 });
 
 

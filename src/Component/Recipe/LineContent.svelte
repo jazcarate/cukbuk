@@ -9,22 +9,17 @@
 </script>
 
 <span>
-    &ZeroWidthSpace;
     {#each items as component}
         {#if component._type == "text"}
             <Text text={component.value} />
         {:else if component._type == "ingredient"}
             <strong>
-                {#if component.value}
-                    <ScalableVector vector={component.value} />
+                <ScalableVector vector={component.value} />
+                {#if component.dentisy}
+                    <span>{component.dentisy.value}</span>
                 {/if}
                 {component.name}
             </strong>
-        {:else if component._type == "scalable"}
-            <ScalableVector vector={component.value} />
-            {#if component.dentisy}
-                <span>{component.dentisy.value}</span>
-            {/if}
         {:else if component._type == "time"}
             <Timer value={component.value} />
         {:else if component._type == "image"}

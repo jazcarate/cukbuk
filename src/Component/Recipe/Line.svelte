@@ -13,8 +13,4 @@
     <Step>
         <LineContent items={line.value} />
     </Step>
-{:else if line._type == "paragraph"}
-    <p>
-        <LineContent items={line.value} />
-    </p>
 {/if}

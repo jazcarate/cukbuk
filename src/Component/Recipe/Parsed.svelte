@@ -2,7 +2,7 @@
     import { _ } from "svelte-i18n";
     import { onMount } from "svelte";
 
-    import { isIngredient } from "../../lib/parser";
+    import { isIngredient, isStep } from "../../lib/parser";
     import type { Recipe } from "../../lib/parser";
     import { checkFav, toggleFav } from "../../lib/fav";
     import { setTitle } from "../../lib/title";
@@ -14,9 +14,10 @@
     import { scale } from "../Preferences/store";
 
     export let recipe: Recipe;
+
     const allIngredients = recipe.lines
-        .map(({ value }) => (Array.isArray(value) ? value : []))
-        .reduce((acc, val) => acc.concat(val), [])
+        .filter(isStep)
+        .flatMap(({ value }) => value)
         .filter(isIngredient);
 
     const ingredients = Object.values(groupBy(allIngredients, "name"));
@@ -52,7 +53,7 @@
         {#each ingredients as ingredient}
             <Step>
                 {#each ingredient as individual, i}
-                    {#if i > 0} + {/if}
+                    {#if i > 0}&nbsp;+&nbsp;{/if}
                     {#if individual.value}
                         <ScalableVector vector={individual.value} />
                     {/if}
