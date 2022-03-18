@@ -60,7 +60,7 @@
         "title": "Timer"
     },
     "loading": "Loading",
-    "units": {},
+    "unit": {},
     "placeholder": {
         "img": "Image"
     }

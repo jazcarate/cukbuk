@@ -60,7 +60,7 @@
         "title": "Temporizador"
     },
     "loading": "Cargando",
-    "units": {
+    "unit": {
         "cup": "taza",
         "teaspoon": "cucharilla"
     },

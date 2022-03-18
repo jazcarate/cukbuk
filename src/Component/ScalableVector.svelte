@@ -28,10 +28,10 @@
               power: 1,
           };
 
-    const familyDef = units[unitDefinition[0]];
+    const familyDef = units[unitDefinition.type];
 
     $: {
-        switch (unitDefinition[0]) {
+        switch (unitDefinition.type) {
             case "weight":
                 currentFamily = $weightFamily;
                 break;
@@ -62,5 +62,5 @@
     value={currentValue}
     edit={familyDef.scalable == 1}
 />{#if currentUnit}
-    <span>{$_("units." + currentUnit, { default: currentUnit })}</span>
+    <span>{$_("unit." + currentUnit, { default: currentUnit })}</span>
 {/if}

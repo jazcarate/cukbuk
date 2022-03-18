@@ -34,7 +34,7 @@
                 <option value={family} selected={$weightFamily == family}
                     >{units.weight.families[family]
                         .map(({ name }) =>
-                            $_("units." + name, { default: name })
+                            $_("unit." + name, { default: name })
                         )
                         .join(", ")}</option
                 >
@@ -49,7 +49,7 @@
                 <option value={family} selected={$volumeFamily == family}
                     >{units.volume.families[family]
                         .map(({ name }) =>
-                            $_("units." + name, { default: name })
+                            $_("unit." + name, { default: name })
                         )
                         .join(", ")}</option
                 >
@@ -63,7 +63,7 @@
                 <option value={family} selected={$temperatureFamily == family}
                     >{units.temperature.families[family]
                         .map(({ name }) =>
-                            $_("units." + name, { default: name })
+                            $_("unit." + name, { default: name })
                         )
                         .join(", ")}</option
                 >
@@ -77,7 +77,7 @@
                 <option value={family} selected={$lengthFamily == family}
                     >{units.length.families[family]
                         .map(({ name }) =>
-                            $_("units." + name, { default: name })
+                            $_("unit." + name, { default: name })
                         )
                         .join(", ")}</option
                 >

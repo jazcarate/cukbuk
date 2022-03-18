@@ -31,7 +31,7 @@
         "title": "⏱"
     },
     "loading": "🔄",
-    "units": {
+    "unit": {
         "kg": "kg",
         "once": "once",
         "l": "l",
