@@ -6,17 +6,14 @@
 
     const dispatch = createEventDispatcher();
 
-    type FileEvent = {
-        target: HTMLInputElement;
-    };
-
-    async function onFileSelected({ target }: FileEvent) {
-        for (const file of target.files) {
+    async function onFileSelected({ target }: Event) {
+        const input = target as HTMLInputElement;
+        for (const file of input.files) {
             const { name } = file;
             const link = await upload(file);
             dispatch("input", { name, link });
         }
-        target.value = target.defaultValue;
+        input.value = input.defaultValue;
     }
 </script>
 

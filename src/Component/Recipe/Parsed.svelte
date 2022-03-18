@@ -18,15 +18,15 @@
         .map(({ value }) => (Array.isArray(value) ? value : []))
         .reduce((acc, val) => acc.concat(val), [])
         .filter(isIngredient);
-    
-    const ingredients = Object.values(groupBy(allIngredients, 'name'));
 
-    function groupBy(xs, key) {
-        return xs.reduce(function(rv, x) {
+    const ingredients = Object.values(groupBy(allIngredients, "name"));
+
+    function groupBy<T>(xs: T[], key: string): { [name: string]: T[] } {
+        return xs.reduce((rv, x) => {
             (rv[x[key]] = rv[x[key]] || []).push(x);
             return rv;
-        }, {});
-    };
+        }, {} as { [name: string]: T[] });
+    }
 
     let isFav = checkFav(recipe.title);
 

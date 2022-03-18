@@ -7,3 +7,5 @@ interface LZMA {
 
 declare const LZMA: LZMA;
 declare const __cukbuk: { env: any, isProd: boolean };
+
+declare module 'svelte-hash-router';

@@ -22,8 +22,8 @@
             </strong>
         {:else if component._type == "scalable"}
             <ScalableVector vector={component.value} />
-            {#if component.density}
-                <span>{component.density.value}</span>
+            {#if component.dentisy}
+                <span>{component.dentisy.value}</span>
             {/if}
         {:else if component._type == "time"}
             <Timer value={component.value} />
