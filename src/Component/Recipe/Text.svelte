@@ -3,7 +3,6 @@
     export let text: string;
 
     const parsed = parse(text);
-    console.log(parsed);
 </script>
 
 <main>
